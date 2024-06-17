@@ -3,7 +3,7 @@ const newsBox = document.getElementById('news-box');
 
 async function fetchNews() {
     try {
-        const response = await fetch(`https://newsapi.org/v2/top-headlines?language=en&pageSize=5&apiKey=${apiKey}`);
+        const response = await fetch(`https://newsapi.org/v2/everything?q=tesla&from=2024-05-17&sortBy=publishedAt&apiKey=1540e401ee084db1b3b94bdc1ff4b501`);
         if (!response.ok) {
             throw new Error(`Error: ${response.status} - ${response.statusText}`);
         }

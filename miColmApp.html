@@ -13,8 +13,8 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <!-- Signature Pad para dibujo -->
   <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.1.7/dist/signature_pad.umd.min.js"></script>
-  <link rel="stylesheet" href="./css/styles.css" />
-  <link rel="stylesheet" href="./css/virtualKeyboard.css" />
+  <link rel="stylesheet" href="./micolmapp/styles/main.css" />
+  <link rel="stylesheet" href="./micolmapp/styles/virtual-keyboard.css" />
   <script>
    /* // Deshabilitar clic derecho en toda la aplicación
     document.addEventListener('contextmenu', function (e) { e.preventDefault(); return false; });
@@ -219,8 +219,7 @@
                   style="border:none;outline:none;font-family:var(--font-body);font-size:1.1rem;flex:1;min-width:140px;background:transparent;padding-right:28px;"
                   oninput="_getTabActiva()&&(_getTabActiva().direccion=this.value,_guardarTabsEnStorage());_syncClearBtn('pos-direccion-cliente','pos-dir-clear');">
                 <button id="pos-dir-clear"
-                  onpointerdown="(function(e){e.preventDefault();var inp=document.getElementById('pos-direccion-cliente');inp.value='';if(_getTabActiva()){_getTabActiva().direccion='';_guardarTabsEnStorage();}inp.dispatchEvent(new Event('input',{bubbles:true}));if(window.vkbTarget===inp){window.vkbCursorPos=0;}else{inp.focus();};})(event);"
-                  style=""
+                  type="button"
                   title="Limpiar dirección">&#x2715;</button>
               </div>
               <button class="icon-btn grid-btn" id="btn-orden-az" onclick="toggleOrdenProductos()" title="Orden A-Z / Original">
@@ -1052,7 +1051,6 @@
               </label>
               <select id="prod-unidad" style="width:100%;padding:10px 14px;border:2px solid var(--gris-borde);border-radius:var(--radio-sm);font-family:var(--font-body);font-size:14px;outline:none;">
                 <option>Unidad</option>
-                <option>Galón</option>
                 <option>Caja</option>
                 <option>Paquete</option>
                 <option>Docena</option>
@@ -1374,56 +1372,36 @@
   </div>
 
   <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-    import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, setPersistence, browserLocalPersistence } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-    import { initializeFirestore, persistentLocalCache, persistentMultipleTabManager, collection, collectionGroup, doc, getDoc, getDocs, setDoc, addDoc, updateDoc, deleteDoc, query, where, orderBy, limit, onSnapshot, Timestamp, serverTimestamp, writeBatch } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-    import { getStorage, ref, uploadString, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js";
-    import { calculateInvoiceTotals, calculateCashChange } from "./src/core/pricing.js";
-    import { evaluatePaymentStatus } from "./src/core/payment.js";
-    import { createInvoiceRepository } from "./src/infra/firestore/invoiceRepo.js";
-    import { createCashRepository } from "./src/infra/firestore/cashRepo.js";
-    import { createDgiiAdapter } from "./src/infra/dgii/dgiiAdapter.js";
-    import { createInvoiceOrchestrator } from "./src/orchestrators/invoiceOrchestrator.js";
-    import { colmadoModuleConfig } from "./src/modules/colmado/config.js";
-
-    const firebaseConfig = {
-      apiKey: "AIzaSyB7cX3O8Nkhg5XYsuH1UIn0ZDyxoxLzTB4",
-      authDomain: "colmapp-4aaa4.firebaseapp.com",
-      projectId: "colmapp-4aaa4",
-      storageBucket: "colmapp-4aaa4.firebasestorage.app",
-      messagingSenderId: "767529335752",
-      appId: "1:767529335752:web:5967b10a0e0da050f91efd",
-      measurementId: "G-22YKHGWTMH"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-
-    // ── FIRESTORE con persistencia IndexedDB multi-pestaña (API moderna Firebase 10) ──
-    // persistentMultipleTabManager: todas las pestañas comparten el mismo caché IndexedDB
-    // onSnapshot sirve datos offline sin lecturas a red; escrituras se encolan offline
-    const db = initializeFirestore(app, {
-      localCache: persistentLocalCache({ tabManager: persistentMultipleTabManager() })
-    });
-
-    const storage = getStorage(app);
-    let _billingContext = null;
-
-    function getBillingContext() {
-      if (!negocioId) return null;
-      if (_billingContext && _billingContext.negocioId === negocioId) return _billingContext;
-      const invoiceRepo = createInvoiceRepository({ db, collection, addDoc, updateDoc, doc, serverTimestamp, negocioId });
-      const cashRepo = createCashRepository({ db, collection, addDoc, serverTimestamp, negocioId });
-      const dgiiAdapter = createDgiiAdapter({
-        transport: async (invoiceDocument) => ({ accepted: true, fiscalTrackId: `DGII-${Date.now()}`, total: invoiceDocument?.totals?.total || 0 })
-      });
-      const orchestrator = createInvoiceOrchestrator({ invoiceRepo, cashRepo, dgiiAdapter, moduleConfig: colmadoModuleConfig });
-      _billingContext = { negocioId, invoiceRepo, cashRepo, dgiiAdapter, orchestrator };
-      return _billingContext;
-    }
-
-    // ── AUTH PERSISTENCE: mantener sesión entre recargas sin consulta extra ──
-    setPersistence(auth, browserLocalPersistence).catch(() => {});
+    import {
+      auth,
+      db,
+      storage,
+      createUserWithEmailAndPassword,
+      signInWithEmailAndPassword,
+      signOut,
+      onAuthStateChanged,
+      collection,
+      collectionGroup,
+      doc,
+      getDoc,
+      getDocs,
+      setDoc,
+      addDoc,
+      updateDoc,
+      deleteDoc,
+      query,
+      where,
+      orderBy,
+      limit,
+      onSnapshot,
+      Timestamp,
+      serverTimestamp,
+      writeBatch,
+      ref,
+      uploadString,
+      getDownloadURL,
+    } from './micolmapp/services/firebase/init.js';
+    import { fmt, fmtNum } from './micolmapp/shared/helpers/format.js';
 
     // ══════════════════════════════════════════════════════════════════════════
     // SISTEMA OFFLINE COMPLETO — Cola de imágenes pendientes + indicadores
@@ -3057,7 +3035,7 @@
 
     // ==================== CARRITO ====================
     // Unidades que permiten cantidades decimales (detallables)
-    const UNIDADES_DETALLABLES = ['libra', 'libras', 'lb', 'kilogramo', 'kilogramos', 'kg', 'kilo', 'kilos', 'onza', 'onzas', 'oz', 'litro', 'litros', 'lt', 'l', 'galon', 'galones', 'gal', 'galón', 'galones'];
+    const UNIDADES_DETALLABLES = ['libra', 'libras', 'lb', 'kilogramo', 'kilogramos', 'kg', 'kilo', 'kilos', 'onza', 'onzas', 'oz', 'litro', 'litros', 'lt', 'l'];
 
     function esUnidadDetallable(unidad) {
       if (!unidad) return false;
@@ -3066,7 +3044,7 @@
 
     function labelUnidad(unidad) {
       const u = (unidad || '').toLowerCase().trim();
-      const map = { libra: 'lb', libras: 'lb', lb: 'lb', kilogramo: 'kg', kilogramos: 'kg', kg: 'kg', kilo: 'kg', kilos: 'kg', onza: 'oz', onzas: 'oz', oz: 'oz', litro: 'L', litros: 'L', lt: 'L', l: 'L', galon: 'gal', galones: 'gal', gal: 'gal', 'galón': 'gal' };
+      const map = { libra: 'lb', libras: 'lb', lb: 'lb', kilogramo: 'kg', kilogramos: 'kg', kg: 'kg', kilo: 'kg', kilos: 'kg', onza: 'oz', onzas: 'oz', oz: 'oz', litro: 'L', litros: 'L', lt: 'L', l: 'L' };
       return map[u] || unidad;
     }
 
@@ -3078,7 +3056,8 @@
     window.duCambiarTab = (tab) => {
       _duTab = tab;
       _duValor = '';
-      document.getElementById('du-valor').value = '';
+      const duInput = document.getElementById('du-valor');
+      duInput.value = '';
       document.getElementById('du-tab-cant').classList.toggle('activo', tab === 'cantidad');
       document.getElementById('du-tab-precio').classList.toggle('activo', tab === 'precio');
       const lbl = document.getElementById('du-label-unidad');
@@ -3087,6 +3066,10 @@
       } else {
         lbl.textContent = 'RD$';
       }
+      setTimeout(() => {
+        duInput.focus();
+        duInput.select();
+      }, 0);
       duActualizarResultado();
     };
 
@@ -3186,6 +3169,39 @@
           else if (e.key === 'Escape') { cerrarModal('modal-detalle-unidad'); e.preventDefault(); }
         });
 
+        // Permite escribir directo con teclado físico aun sin foco en el input
+        document.addEventListener('keydown', (e) => {
+          const modal = document.getElementById('modal-detalle-unidad');
+          if (!modal || !modal.classList.contains('active')) return;
+          if (e.ctrlKey || e.altKey || e.metaKey) return;
+          if (['INPUT', 'TEXTAREA', 'SELECT'].includes(document.activeElement?.tagName)) return;
+
+          if (e.key >= '0' && e.key <= '9') {
+            duTecla(e.key);
+            e.preventDefault();
+            return;
+          }
+          if (e.key === '.') {
+            duTecla('.');
+            e.preventDefault();
+            return;
+          }
+          if (e.key === 'Backspace') {
+            duTecla('⌫');
+            e.preventDefault();
+            return;
+          }
+          if (e.key === 'Enter') {
+            duConfirmar();
+            e.preventDefault();
+            return;
+          }
+          if (e.key === 'Escape') {
+            cerrarModal('modal-detalle-unidad');
+            e.preventDefault();
+          }
+        });
+
         // Observar apertura del modal para enfocar el input
         const modal = document.getElementById('modal-detalle-unidad');
         if (!modal) return;
@@ -3219,6 +3235,7 @@
       if (btnOk) { btnOk.innerHTML = '<i class="fas fa-check"></i> Agregar al Carrito'; btnOk.disabled = true; }
       duActualizarResultado();
       abrirModal('modal-detalle-unidad');
+      setTimeout(() => document.getElementById('du-valor')?.focus(), 140);
     }
 
     window.abrirModalEditarDetalle = (prodId) => {
@@ -3228,11 +3245,11 @@
       _duProd = item;
       _duModoEdicion = true;
       _duTab = 'cantidad';
-      const qtyActual = item.qty;
-      _duValor = Number.isInteger(qtyActual) ? String(qtyActual) : qtyActual.toFixed(2);
+      // Siempre iniciar vacío al abrir el modal para capturar el nuevo valor de una vez
+      _duValor = '';
       document.getElementById('du-nombre').textContent = item.nombre;
       document.getElementById('du-precio-ref').innerHTML = `Precio: <span class="du-precio-valor">${fmt(item._precioBase || item.precio)}</span> por ${labelUnidad(item.unidad)}`;
-      document.getElementById('du-valor').value = _duValor;
+      document.getElementById('du-valor').value = '';
       document.getElementById('du-label-unidad').textContent = labelUnidad(item.unidad || '');
       document.getElementById('du-tab-cant').classList.add('activo');
       document.getElementById('du-tab-precio').classList.remove('activo');
@@ -3243,6 +3260,7 @@
       if (btnOk) { btnOk.innerHTML = 'Actualizar Carrito'; btnOk.disabled = true; }
       duActualizarResultado();
       abrirModal('modal-detalle-unidad');
+      setTimeout(() => document.getElementById('du-valor')?.focus(), 140);
     };
 
     // Edición inline de cantidad/precio en carrito (para productos detallables)
@@ -4183,15 +4201,18 @@
     // ==================== CONFIRMAR FACTURA — LÓGICA DEL BOTÓN VERDE ====================
     function _facturaListaParaPagar() {
       const carrito = getCarrito();
-      const total = calculateInvoiceTotals(carrito, config).total;
+      const subtotal = carrito.reduce((s, i) => { if (i.comboActivo && i.comboPrecio && i.comboUnidades >= 2) return s + window.calcularPrecioConCombo(i.qty, i.precio, i.comboPrecio, i.comboUnidades); if (i._precioBase !== undefined) return s + i._precioBase * i.qty; return s + i.precio * i.qty; }, 0);
+      const itbisPct = config.itbisPct || 18;
+      const itbisCliente = config.itbisCliente === true;
+      const total = subtotal * (1 + (itbisCliente ? itbisPct / 100 : 0));
       if (metodoPagoSeleccionado === 'efectivo') {
         const recibido = parseFloat(document.getElementById('monto-recibido')?.value) || 0;
-        return evaluatePaymentStatus({ total, method: 'efectivo', received: recibido }).ready;
+        return recibido >= total;
       }
       if (metodoPagoSeleccionado === 'mixto') {
         const ef = parseFloat(_mixtoEfStr) || 0;
         const elec = parseFloat(_mixtoElecStr) || 0;
-        return evaluatePaymentStatus({ total, method: 'mixto', mixed: { cash: ef, digital: elec } }).ready;
+        return (ef > 0 || elec > 0) && (ef + elec) >= total;
       }
       // transferencia / tarjeta — siempre listo
       return (metodoPagoSeleccionado === 'transferencia' || metodoPagoSeleccionado === 'tarjeta');
@@ -4213,9 +4234,16 @@
       // estadoFacturaSeleccionado se resetea a 'pagada' dentro de confirmarFactura()
     };
 
-    function _facturaTotalActual() { return calculateInvoiceTotals(getCarrito(), config).total; }
-    window.ponerMontoExacto = () => { const inp = document.getElementById('monto-recibido'); if (!inp) return; inp.value = _facturaTotalActual().toFixed(2); calcularCambio(); };
-    window.calcularCambio = () => { const total = _facturaTotalActual(); const recibido = parseFloat(document.getElementById('monto-recibido').value) || 0; const cashState = calculateCashChange(total, recibido); const disp = document.getElementById('cambio-display'); disp.style.display = 'flex'; if (recibido > 0) { document.getElementById('cambio-valor').textContent = fmt(Math.max(0, cashState.change)); disp.style.background = cashState.isCovered ? '#d4edda' : '#f8d7da'; } else { document.getElementById('cambio-valor').textContent = 'RD$ 0.00'; disp.style.background = 'rgb(248, 215, 218)'; } actualizarBtnConfirmar(); };
+    function _facturaTotalActual() {
+      return getCarrito().reduce((s, i) => s + (i._precioBase || i.precio) * i.qty, 0) * (1 + (config.itbisCliente === true ? (config.itbisPct || 18) / 100 : 0));
+    }
+    window.ponerMontoExacto = () => {
+      const inp = document.getElementById('monto-recibido');
+      if (!inp) return;
+      inp.value = _facturaTotalActual().toFixed(2);
+      calcularCambio();
+    };
+    window.calcularCambio = () => { const total = _facturaTotalActual(); const recibido = parseFloat(document.getElementById('monto-recibido').value) || 0; const cambio = recibido - total; const disp = document.getElementById('cambio-display'); disp.style.display = 'flex'; if (recibido > 0) { document.getElementById('cambio-valor').textContent = fmt(Math.max(0, cambio)); disp.style.background = cambio >= 0 ? '#d4edda' : '#f8d7da'; } else { document.getElementById('cambio-valor').textContent = 'RD$ 0.00'; disp.style.background = 'rgb(248, 215, 218)'; } actualizarBtnConfirmar(); };
 
     window.tecNumero = (val) => { const inp = document.getElementById('monto-recibido'); if (val === 'C') { inp.value = ''; } else if (val === '⌫') { inp.value = inp.value.slice(0, -1); } else if (val === 'OK') { calcularCambio(); return; } else { inp.value += val; } calcularCambio(); };
 
@@ -4402,18 +4430,21 @@
         };
 
         // ── 8. Guardar en Firestore (offline-safe con _fsOp) ──────────
-        const billing = getBillingContext();
         let factRef;
         if (esPendiente) {
-          factRef = await _fsOp(() => billing.invoiceRepo.savePendingInvoice(facturaData));
+          factRef = await _fsOp(() => addDoc(collection(db, 'negocios', negocioId, 'facturas-pendientes'), facturaData));
         } else {
-          factRef = await _fsOp(() => billing.invoiceRepo.savePaidInvoice(facturaData));
+          factRef = await _fsOp(() => addDoc(collection(db, 'negocios', negocioId, 'facturas'), facturaData));
           // Movimiento de caja y actualización de saldo (encolados offline automáticamente)
-          _fsOp(() => billing.cashRepo.registerIncome({
-            amount: total,
-            description: `Venta ${numFactura}`,
-            employeeName: empNombre,
-            facturaId: factRef.id
+          _fsOp(() => addDoc(collection(db, 'negocios', negocioId, 'movimientos'), {
+            tipo: 'ingreso',
+            descripcion: `Venta ${numFactura}`,
+            monto: total,
+            fecha: serverTimestamp(),
+            uid: currentUser?.uid || '',
+            empleadoNombre: empNombre,
+            facturaId: factRef.id,
+            cajaId: cajaActual?.id || ''
           }));
           if (cajaActual?.id) {
             cajaActual.ingresos = (cajaActual.ingresos || 0) + total;
@@ -4969,8 +5000,7 @@
         };
         delete facturaPageData.id;
 
-        const billing = getBillingContext();
-        const newFactRef = await _fsOp(() => billing.invoiceRepo.savePaidInvoice(facturaPageData));
+        const newFactRef = await _fsOp(() => addDoc(collection(db, 'negocios', negocioId, 'facturas'), facturaPageData));
         _fsOp(() => deleteDoc(doc(db, 'negocios', negocioId, 'facturas-pendientes', pfpFacturaId)));
 
         if (cajaActual) {
@@ -5687,7 +5717,7 @@
       if (h1) h1.style.display = 'block';
       if (h2) h2.style.display = 'block';
       if (rh) rh.style.display = 'none';
-      document.getElementById('prod-detalle-enabled').checked = false; _syncDetalleToggleUI(false); const _selU = document.getElementById('prod-unidad'); _selU.innerHTML = '<option>Unidad</option><option>Galón</option><option>Caja</option><option>Paquete</option><option>Docena</option>'; _selU.value = 'Unidad';
+      document.getElementById('prod-detalle-enabled').checked = false; _syncDetalleToggleUI(false); const _selU = document.getElementById('prod-unidad'); _selU.innerHTML = '<option>Unidad</option><option>Caja</option><option>Paquete</option><option>Docena</option>'; _selU.value = 'Unidad';
       document.getElementById('prod-itbis').value = '1';
       // Reset stock toggle
       document.getElementById('prod-stock-enabled').checked = true;
@@ -5814,7 +5844,7 @@
       if (h1) h1.style.display = 'block';
       if (h2) h2.style.display = 'block';
       if (rh) rh.style.display = 'none';
-      document.getElementById('prod-detalle-enabled').checked = false; _syncDetalleToggleUI(false); const _selU = document.getElementById('prod-unidad'); _selU.innerHTML = '<option>Unidad</option><option>Galón</option><option>Caja</option><option>Paquete</option><option>Docena</option>'; _selU.value = 'Unidad';
+      document.getElementById('prod-detalle-enabled').checked = false; _syncDetalleToggleUI(false); const _selU = document.getElementById('prod-unidad'); _selU.innerHTML = '<option>Unidad</option><option>Caja</option><option>Paquete</option><option>Docena</option>'; _selU.value = 'Unidad';
       document.getElementById('prod-itbis').value = '1';
       // Reset stock toggle
       document.getElementById('prod-stock-enabled').checked = true;
@@ -5830,7 +5860,7 @@
       abrirModal('modal-producto');
     };
 
-    window.editarProducto = (id) => { const p = productos.find(pr => pr.id === id); if (!p) return; productoEnEdicion = p; document.getElementById('modal-prod-titulo').innerHTML = '<i class="fas fa-edit"></i> Editar Producto'; document.getElementById('prod-id').value = p.id; document.getElementById('prod-nombre').value = p.nombre || ''; document.getElementById('prod-peso-neto').value = p.pesoNeto || ''; document.getElementById('prod-barcode').value = p.codigoBarras || ''; document.getElementById('prod-precio').value = p.precio || ''; document.getElementById('prod-costo').value = p.costo || ''; const stockHab = p.stockHabilitado !== false; document.getElementById('prod-stock-enabled').checked = stockHab; document.getElementById('stock-fields-wrap').style.display = stockHab ? 'block' : 'none'; document.getElementById('prod-stock').value = stockHab ? (p.stock >= 0 ? p.stock : '') : ''; document.getElementById('prod-stock-min').value = p.stockMin || ''; const detalleActivo = !!p.productoDetalle; document.getElementById('prod-detalle-enabled').checked = detalleActivo; _syncDetalleToggleUI(detalleActivo); const selUnidad = document.getElementById('prod-unidad'); selUnidad.innerHTML = detalleActivo ? '<option>Libra</option><option>Kilogramo</option><option>Onza</option><option>Litro</option>' : '<option>Unidad</option><option>Galón</option><option>Caja</option><option>Paquete</option><option>Docena</option>'; selUnidad.value = p.unidad || (detalleActivo ? 'Libra' : 'Unidad'); document.getElementById('prod-itbis').value = p.itbis !== false ? '1' : '0'; setMasVendidosToggle(!!p.masVendidos); const comboActivo = !!p.comboActivo; document.getElementById('prod-combo-enabled').checked = comboActivo; _syncComboToggleUI(comboActivo); if (comboActivo) { document.getElementById('prod-combo-precio').value = p.comboPrecio || ''; document.getElementById('prod-combo-unidades').value = p.comboUnidades || ''; setTimeout(actualizarComboPreview, 50); } else { document.getElementById('prod-combo-precio').value = ''; document.getElementById('prod-combo-unidades').value = ''; } populateCatSelects(); document.getElementById('prod-categoria').value = p.categoriaId || ''; const icon = document.getElementById('prod-img-icon'); const h1 = document.getElementById('prod-img-hint1'); const h2 = document.getElementById('prod-img-hint2'); const rh = document.getElementById('prod-img-replace-hint'); if (p.imagen) { document.getElementById('prod-img-preview').src = p.imagen; document.getElementById('prod-img-preview').style.display = 'block'; if (icon) icon.style.display = 'none'; if (h1) h1.style.display = 'none'; if (h2) h2.style.display = 'none'; if (rh) rh.style.display = 'block'; } else { document.getElementById('prod-img-preview').src = ''; document.getElementById('prod-img-preview').style.display = 'none'; if (icon) icon.style.display = 'block'; if (h1) h1.style.display = 'block'; if (h2) h2.style.display = 'block'; if (rh) rh.style.display = 'none'; } const btnElimP = document.getElementById('btn-eliminar-producto'); if (btnElimP) btnElimP.style.display = 'inline-flex'; abrirModal('modal-producto'); };
+    window.editarProducto = (id) => { const p = productos.find(pr => pr.id === id); if (!p) return; productoEnEdicion = p; document.getElementById('modal-prod-titulo').innerHTML = '<i class="fas fa-edit"></i> Editar Producto'; document.getElementById('prod-id').value = p.id; document.getElementById('prod-nombre').value = p.nombre || ''; document.getElementById('prod-peso-neto').value = p.pesoNeto || ''; document.getElementById('prod-barcode').value = p.codigoBarras || ''; document.getElementById('prod-precio').value = p.precio || ''; document.getElementById('prod-costo').value = p.costo || ''; const stockHab = p.stockHabilitado !== false; document.getElementById('prod-stock-enabled').checked = stockHab; document.getElementById('stock-fields-wrap').style.display = stockHab ? 'block' : 'none'; document.getElementById('prod-stock').value = stockHab ? (p.stock >= 0 ? p.stock : '') : ''; document.getElementById('prod-stock-min').value = p.stockMin || ''; const detalleActivo = !!p.productoDetalle; document.getElementById('prod-detalle-enabled').checked = detalleActivo; _syncDetalleToggleUI(detalleActivo); const selUnidad = document.getElementById('prod-unidad'); selUnidad.innerHTML = detalleActivo ? '<option>Libra</option><option>Kilogramo</option><option>Onza</option><option>Litro</option>' : '<option>Unidad</option><option>Caja</option><option>Paquete</option><option>Docena</option>'; selUnidad.value = p.unidad || (detalleActivo ? 'Libra' : 'Unidad'); document.getElementById('prod-itbis').value = p.itbis !== false ? '1' : '0'; setMasVendidosToggle(!!p.masVendidos); const comboActivo = !!p.comboActivo; document.getElementById('prod-combo-enabled').checked = comboActivo; _syncComboToggleUI(comboActivo); if (comboActivo) { document.getElementById('prod-combo-precio').value = p.comboPrecio || ''; document.getElementById('prod-combo-unidades').value = p.comboUnidades || ''; setTimeout(actualizarComboPreview, 50); } else { document.getElementById('prod-combo-precio').value = ''; document.getElementById('prod-combo-unidades').value = ''; } populateCatSelects(); document.getElementById('prod-categoria').value = p.categoriaId || ''; const icon = document.getElementById('prod-img-icon'); const h1 = document.getElementById('prod-img-hint1'); const h2 = document.getElementById('prod-img-hint2'); const rh = document.getElementById('prod-img-replace-hint'); if (p.imagen) { document.getElementById('prod-img-preview').src = p.imagen; document.getElementById('prod-img-preview').style.display = 'block'; if (icon) icon.style.display = 'none'; if (h1) h1.style.display = 'none'; if (h2) h2.style.display = 'none'; if (rh) rh.style.display = 'block'; } else { document.getElementById('prod-img-preview').src = ''; document.getElementById('prod-img-preview').style.display = 'none'; if (icon) icon.style.display = 'block'; if (h1) h1.style.display = 'block'; if (h2) h2.style.display = 'block'; if (rh) rh.style.display = 'none'; } const btnElimP = document.getElementById('btn-eliminar-producto'); if (btnElimP) btnElimP.style.display = 'inline-flex'; abrirModal('modal-producto'); };
 
     window.toggleStockFields = function() {
       const enabled = document.getElementById('prod-stock-enabled').checked;
@@ -5845,7 +5875,7 @@
       const unidadActual = sel.value;
       sel.innerHTML = activo
         ? `<option>Libra</option><option>Kilogramo</option><option>Onza</option><option>Litro</option>`
-        : `<option>Unidad</option><option>Galón</option><option>Caja</option><option>Paquete</option><option>Docena</option>`;
+        : `<option>Unidad</option><option>Caja</option><option>Paquete</option><option>Docena</option>`;
       const opts = Array.from(sel.options).map(o => o.value);
       if (opts.includes(unidadActual)) sel.value = unidadActual;
     };
@@ -6326,10 +6356,6 @@
 
     window.exportarMovimientos = () => { let csv = 'Hora,Tipo,Descripción,Empleado,Monto\n'; movimientosCache.forEach(m => { const fecha = m.fecha?.toDate ? m.fecha.toDate().toLocaleTimeString('es-DO') : '-'; csv += `"${fecha}","${m.tipo}","${m.descripcion}","${m.empleadoNombre || '-'}","${m.monto}"\n`; }); const blob = new Blob([csv], { type: 'text/csv' }); const url = URL.createObjectURL(blob); const a = document.createElement('a'); a.href = url; a.download = `movimientos_${new Date().toLocaleDateString('es-DO')}.csv`; a.click(); };
 
-    // ==================== HELPERS ====================
-    function fmt(val) { return `RD$ ${(val || 0).toLocaleString('es-DO', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`; }
-    function fmtNum(val) { const n = parseFloat(val) || 0; if (Number.isInteger(n)) return n; const r = parseFloat(n.toFixed(2)); return Number.isInteger(r) ? r : r.toFixed(2); }
-
     // ── MODAL HISTORY MANAGER ────────────────────────────────────────────
     // Mantiene un stack de modales abiertos. Cada vez que se abre un modal
     // se empuja una entrada al historial del navegador, y cuando el usuario
@@ -6682,21 +6708,68 @@
     // ==================== SYNC CLEAR BUTTONS ====================
     // Mapa de input → botón claro para actualización centralizada
     const _clearBtnMap = {};
+    const _clearBtnReverseMap = {};
 
     window._syncClearBtn = function (inputId, btnId) {
       const inp = document.getElementById(inputId);
       const btn = document.getElementById(btnId);
       if (!inp || !btn) return;
+
+      function setVisible(b, visible) {
+        // Forzar consistencia incluso si hay CSS/JS que re-aplica "flex"
+        b.hidden = !visible;
+        b.style.setProperty('display', visible ? 'flex' : 'none', 'important');
+        if (!visible) b.setAttribute('aria-hidden', 'true');
+        else b.removeAttribute('aria-hidden');
+      }
+
       // Registrar listener una sola vez — es la única fuente de verdad
       if (!_clearBtnMap[inputId]) {
         _clearBtnMap[inputId] = btnId;
+        _clearBtnReverseMap[btnId] = inputId;
+
+        // Handler del botón (sin inline JS): limpiar y ocultar consistentemente
+        const handler = (e) => {
+          if (e) {
+            e.preventDefault();
+            e.stopPropagation();
+          }
+          const inputEl = document.getElementById(inputId);
+          const btnEl = document.getElementById(btnId);
+          if (!inputEl || !btnEl) return;
+
+          inputEl.value = '';
+          // mantener storage (tabs) si aplica
+          try {
+            if (typeof window._getTabActiva === 'function') {
+              const tab = window._getTabActiva();
+              if (tab) {
+                tab.direccion = '';
+                if (typeof window._guardarTabsEnStorage === 'function') window._guardarTabsEnStorage();
+              }
+            }
+          } catch (_) { }
+
+          inputEl.dispatchEvent(new Event('input', { bubbles: true }));
+          // Por si algún listener externo re-muestra el botón, forzamos oculto al final del tick
+          setVisible(btnEl, false);
+          setTimeout(() => setVisible(btnEl, inputEl.value.trim().length > 0), 0);
+        };
+
+        // Evitar doble registro
+        if (!btn.dataset.clearHooked) {
+          btn.addEventListener('pointerdown', handler, true);
+          btn.addEventListener('click', handler, true);
+          btn.dataset.clearHooked = '1';
+        }
+
         inp.addEventListener('input', () => {
           const b = document.getElementById(_clearBtnMap[inputId]);
-          if (b) b.style.display = inp.value.length > 0 ? 'flex' : 'none';
+          if (b) setVisible(b, inp.value.trim().length > 0);
         }, true); // captura: se ejecuta antes que cualquier otro handler
       }
       // Sincronizar estado inmediato
-      btn.style.display = inp.value.length > 0 ? 'flex' : 'none';
+      setVisible(btn, inp.value.trim().length > 0);
     };
 
     // ==================== POS RESIZER ====================
@@ -6829,7 +6902,7 @@
   </div>
 
   <!-- ===== TECLADO TOUCH VIRTUAL (modular) ===== -->
-  <script src="./js/virtualKeyboard.js"></script>
+  <script src="./micolmapp/components/ui-base/virtual-keyboard.js"></script>
   <!-- ===== FIN TECLADO TOUCH VIRTUAL ===== -->
 
   <script>
@@ -7464,6 +7537,7 @@
     }
     #monto-recibido[type=number] {
       -moz-appearance: textfield;
+      appearance: textfield;
       text-align: right;
     }
 

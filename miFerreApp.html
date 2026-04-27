@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>miFerreApp</title>
+  <link rel="stylesheet" href="./css/styles.css">
+</head>
+<body>
+  <main style="max-width:960px;margin:40px auto;padding:16px;">
+    <h1>miFerreApp</h1>
+    <p>Base inicial del modulo de ferreteria conectada al core de facturacion.</p>
+    <div id="ferre-status" style="padding:12px;border:1px solid #d0d7e2;border-radius:8px;background:#fff;"></div>
+  </main>
+
+  <script type="module">
+    import { ferreteriaModuleConfig } from "./src/modules/ferreteria/config.js";
+    import { calculateInvoiceTotals } from "./src/core/pricing.js";
+
+    const demoCart = [
+      { nombre: "Tornillo 1/4", precio: 3, qty: 20 },
+      { nombre: "Cemento 50kg", precio: 450, qty: 2 }
+    ];
+    const totals = calculateInvoiceTotals(demoCart, { itbisCliente: true, itbisPct: 18 });
+    const el = document.getElementById("ferre-status");
+    el.innerHTML = `
+      <strong>Modulo:</strong> ${ferreteriaModuleConfig.id}<br>
+      <strong>Etiqueta de documento:</strong> ${ferreteriaModuleConfig.labels.invoice}<br>
+      <strong>Total demo:</strong> RD$ ${totals.total.toFixed(2)}
+    `;
+  </script>
+</body>
+</html>

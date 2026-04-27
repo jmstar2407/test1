@@ -1,0 +1,2 @@
+/** Tablas reutilizables (futuro). */
+export {};

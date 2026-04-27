@@ -1,0 +1,443 @@
+
+    /* ===== TECLADO TOUCH VIRTUAL ===== */
+    #vkb-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 99998;
+      background: transparent;
+    }
+
+    #vkb-overlay.vkb-open {
+      display: block;
+    }
+
+    /* ===== TECLADO VIRTUAL — Responsivo + Tema claro/oscuro ===== */
+
+    /* Variables del tema oscuro (por defecto) */
+    #vkb-panel {
+      --vkb-bg: #1e2535;
+      --vkb-preview-bg: #111827;
+      --vkb-key-bg: #2d3750;
+      --vkb-key-color: #e2e8f0;
+      --vkb-key-shadow: #111827;
+      --vkb-key-pressed: #4a5568;
+      --vkb-key-num-bg: #252e43;
+      --vkb-key-num-color: #94a3b8;
+      --vkb-space-bg: #374165;
+      --vkb-space-color: #94a3b8;
+      --vkb-backspace-bg: #3b2d45;
+      --vkb-backspace-color: #e28a8a;
+      --vkb-enter-bg: #1e4a7a;
+      --vkb-enter-color: #63b3ed;
+      --vkb-shift-bg: #253045;
+      --vkb-shift-color: #94a3b8;
+      --vkb-shift-active-bg: #2d4a7a;
+      --vkb-shift-active-color: #63b3ed;
+      --vkb-toggle-bg: #253045;
+      --vkb-toggle-color: #94a3b8;
+      --vkb-theme-btn-bg: #2a3858;
+      --vkb-theme-btn-color: #f6c90e;
+      --vkb-eñe-bg: #2a3858;
+      --vkb-eñe-color: #a78bfa;
+      --vkb-accent-bg: #2a3858;
+      --vkb-accent-color: #f6ad55;
+      --vkb-close-bg: #2d3750;
+      --vkb-close-color: #94a3b8;
+      --vkb-drag-dot-color: #94a3b8;
+      --vkb-preview-icon-color: #6b7de0;
+      --vkb-preview-text-color: #e2e8f0;
+      --vkb-cursor-color: #6b7de0;
+      --vkb-field-label-color: #4a5568;
+    }
+
+    /* Tema claro */
+    #vkb-panel.vkb-dark {
+      --vkb-bg: #f0f2f7;
+      --vkb-preview-bg: #dde1ea;
+      --vkb-key-bg: #ffffff;
+      --vkb-key-color: #1a2135;
+      --vkb-key-shadow: #b0b8ca;
+      --vkb-key-pressed: #d0d5e2;
+      --vkb-key-num-bg: #e8ebf2;
+      --vkb-key-num-color: #4a5568;
+      --vkb-space-bg: #e2e6f0;
+      --vkb-space-color: #4a5568;
+      --vkb-backspace-bg: #fce4e4;
+      --vkb-backspace-color: #c0392b;
+      --vkb-enter-bg: #d6eaf8;
+      --vkb-enter-color: #1565c0;
+      --vkb-shift-bg: #e8ebf2;
+      --vkb-shift-color: #4a5568;
+      --vkb-shift-active-bg: #c5d8f5;
+      --vkb-shift-active-color: #1565c0;
+      --vkb-toggle-bg: #e8ebf2;
+      --vkb-toggle-color: #4a5568;
+      --vkb-theme-btn-bg: #fff3cd;
+      --vkb-theme-btn-color: #856404;
+      --vkb-eñe-bg: #ede9f8;
+      --vkb-eñe-color: #6b21a8;
+      --vkb-accent-bg: #fff3e0;
+      --vkb-accent-color: #b45309;
+      --vkb-close-bg: #e8ebf2;
+      --vkb-close-color: #4a5568;
+      --vkb-drag-dot-color: #94a3b8;
+      --vkb-preview-icon-color: #1565c0;
+      --vkb-preview-text-color: #1a2135;
+      --vkb-cursor-color: #1565c0;
+      --vkb-field-label-color: #64748b;
+    }
+
+#vkb-panel {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: clamp(380px, 1020px, 98vw);
+    min-width: 380px;
+    max-width: 1280px;
+    min-height: 300px;
+    max-height: 420px;
+    z-index: 99999;
+    background: var(--vkb-bg);
+    border-radius: 18px;
+    box-shadow: 0 8px 48px rgba(0, 0, 0, 0.55), 0 2px 12px rgba(0, 0, 0, 0.3);
+    padding: 18px clamp(6px, 1.2vw, 14px) clamp(8px, 1.5vh, 14px);
+    transition: opacity 0.2s ease, background 0.2s;
+    opacity: 0;
+    pointer-events: none;
+    display: flex;
+    user-select: none;
+    touch-action: none;
+    overflow: hidden;
+    flex-direction: column;
+    box-sizing: border-box;
+}
+
+#vkb-panel.vkb-open {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+    #vkb-panel.vkb-open[style*="transform: none"] {
+      transform: none !important;
+    }
+
+    #vkb-panel.vkb-dragging {
+      transition: background 0.2s !important;
+    }
+
+    #vkb-x-close {
+      position: absolute;
+      right: 10px;
+      top: 6px;
+      z-index: 10;
+      background: none !important;
+      border: none !important;
+      color: var(--vkb-drag-dot-color) !important;
+      font-size: 1.1rem !important;
+      cursor: pointer !important;
+      padding: 4px 8px !important;
+      border-radius: 6px !important;
+      line-height: 1 !important;
+      touch-action: auto !important;
+    }
+
+    #vkb-x-close:hover {
+      color: #e03131 !important;
+      background: rgba(224,49,49,0.12) !important;
+    }
+
+    .vkb-hash {
+      background: var(--vkb-eñe-bg) !important;
+      color: var(--vkb-eñe-color) !important;
+      font-weight: 700 !important;
+    }
+
+    /* Barra de arrastre */
+    #vkb-drag-handle {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 7px 5px 20px;
+      cursor: grab;
+      touch-action: none;
+      user-select: none;
+      flex-shrink: 0;
+      background: #11182700;
+      position: absolute;
+      width: 100%;
+      left: 0;
+      top: 0;
+      border-radius: 14px;
+      margin-bottom: 4px;
+    }
+
+    #vkb-drag-handle:active {
+      cursor: grabbing;
+    }
+
+    #vkb-drag-dots {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      opacity: 0.35;
+      flex: 1;
+      align-items: center;
+    }
+
+    #vkb-drag-dots span {
+      display: block;
+      width: 28px;
+      height: 3px;
+      background: var(--vkb-drag-dot-color);
+      border-radius: 2px;
+    }
+
+    /* Handle de resize */
+    #vkb-resize-handle {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 22px;
+      height: 22px;
+      cursor: se-resize;
+      touch-action: none;
+      z-index: 10;
+      display: flex;
+      align-items: flex-end;
+      justify-content: flex-end;
+      padding: 3px;
+    }
+
+    #vkb-resize-handle svg {
+      opacity: 0.4;
+      transition: opacity 0.15s;
+    }
+
+    #vkb-resize-handle:hover svg {
+      opacity: 0.8;
+    }
+
+    #vkb-preview-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--vkb-preview-bg);
+      border-radius: 10px;
+      padding: clamp(5px, 1vh, 10px) clamp(8px, 1.5vw, 16px);
+      margin-bottom: clamp(5px, 1vh, 10px);
+      flex-shrink: 0;
+      transition: background 0.2s;
+    }
+
+    #vkb-preview-icon {
+      font-size: 13px;
+      color: var(--vkb-preview-icon-color);
+      flex-shrink: 0;
+    }
+
+    #vkb-preview-text {
+      flex: 1;
+      font-size: clamp(0.85rem, 1.5vw, 1rem);
+      font-weight: 600;
+      color: var(--vkb-preview-text-color);
+      font-family: var(--font-body, 'Nunito', sans-serif);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      min-width: 0;
+      letter-spacing: 0.3px;
+    }
+
+    #vkb-preview-text .vkb-cursor {
+      display: inline-block;
+      width: 2px;
+      height: 1.1em;
+      background: var(--vkb-cursor-color);
+      margin-left: 2px;
+      vertical-align: middle;
+      animation: vkbBlink 1s step-end infinite;
+      border-radius: 1px;
+    }
+
+    @keyframes vkbBlink {
+
+      0%,
+      100% {
+        opacity: 1
+      }
+
+      50% {
+        opacity: 0
+      }
+    }
+
+    #vkb-close-btn {
+      background: var(--vkb-close-bg);
+      border: none;
+      color: var(--vkb-close-color);
+      border-radius: 8px;
+      padding: 5px 10px;
+      font-size: 13px;
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: background 0.15s;
+    }
+
+    #vkb-close-btn:hover {
+      filter: brightness(1.1);
+    }
+
+    /* ── Filas y teclas — Totalmente responsivas ── */
+    .vkb-rows {
+      display: flex;
+      flex-direction: column;
+      gap: clamp(3px, 0.6vh, 7px);
+      flex: 1;
+      min-height: 0;
+    }
+
+    /* Cuando contiene el nuevo layout con numpad, cede el flex a vkb-body-wrap */
+    .vkb-rows > .vkb-body-wrap {
+      flex: 1;
+      min-height: 0;
+      gap: clamp(3px, 0.6vh, 7px);
+    }
+
+    .vkb-row {
+      display: flex;
+      gap: clamp(3px, 0.5vw, 6px);
+      justify-content: stretch;
+      flex: 1;
+      min-height: 0;
+    }
+
+    .vkb-key {
+      height: 100%;
+      min-height: clamp(32px, 5vh, 52px);
+      /*max-height: 62px;*/
+      min-width: 0;
+      flex: 1;
+      border: none;
+      border-radius: clamp(6px, 0.8vw, 10px);
+      background: var(--vkb-key-bg);
+      color: var(--vkb-key-color);
+      font-size: clamp(0.7rem, 1.8vw, 1.6rem);
+      font-weight: 600;
+      font-family: var(--font-body, 'Nunito', sans-serif);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.1s, transform 0.08s;
+      box-shadow: 0 2px 0 var(--vkb-key-shadow);
+      -webkit-tap-highlight-color: transparent;
+      position: relative;
+      letter-spacing: 0.2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      box-sizing: border-box;
+    }
+
+          .vkb-numpad-key {
+            background: var(--vkb-key-num-bg) !important;
+            }
+
+    .number_j1 {
+      
+       background: var(--vkb-eñe-bg) !important;
+    color: var(--vkb-eñe-color) !important;
+    font-size: clamp(0.9rem, 1.8vw, 1.75rem) !important;
+    } 
+
+    .vkb-key:active,
+    .vkb-key.vkb-pressed {
+      background: var(--vkb-key-pressed) !important;
+      transform: scale(0.93);
+      box-shadow: none;
+    }
+
+    .vkb-key.vkb-num {
+      background: var(--vkb-key-num-bg);
+      color: var(--vkb-key-num-color);
+    }
+
+    .vkb-key.vkb-space {
+      flex: 4;
+      background: var(--vkb-space-bg);
+      color: var(--vkb-space-color);
+      font-size: clamp(0.6rem, 1.2vw, 0.8rem);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .vkb-key.vkb-backspace {
+      flex: 1.6;
+      background: var(--vkb-backspace-bg);
+      color: var(--vkb-backspace-color);
+      font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+    }
+
+    .vkb-key.vkb-enter {
+      flex: 1.8;
+      background: var(--vkb-enter-bg);
+      color: var(--vkb-enter-color);
+      font-size: clamp(0.65rem, 1.2vw, 0.78rem);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .vkb-key.vkb-shift {
+      flex: 1.6;
+      background: var(--vkb-shift-bg);
+      color: var(--vkb-shift-color);
+      font-size: clamp(0.85rem, 1.5vw, 1rem);
+    }
+
+    .vkb-key.vkb-shift.active {
+      background: var(--vkb-shift-active-bg);
+      color: var(--vkb-shift-active-color);
+    }
+
+    .vkb-key.vkb-num-toggle {
+      flex: 1.6;
+      background: var(--vkb-toggle-bg);
+      color: var(--vkb-toggle-color);
+      font-size: clamp(0.65rem, 1.2vw, 0.78rem);
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+
+    .vkb-key.vkb-theme-toggle {
+      flex: 1.2;
+      background: var(--vkb-theme-btn-bg);
+      color: var(--vkb-theme-btn-color);
+      font-size: clamp(0.85rem, 1.4vw, 1rem);
+    }
+
+    .vkb-key.vkb-eñe {
+      background: var(--vkb-eñe-bg);
+      color: var(--vkb-eñe-color);
+    }
+
+    .vkb-key.vkb-accent {
+      background: var(--vkb-accent-bg);
+      color: var(--vkb-accent-color);
+      font-size: clamp(0.75rem, 1.3vw, 0.9rem);
+    }
+
+    /* Indicador de campo activo */
+    #vkb-field-label {
+      font-size: 10px;
+      color: var(--vkb-field-label-color);
+      text-align: center;
+      margin-bottom: 3px;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    /* ===== FIN TECLADO TOUCH ===== */

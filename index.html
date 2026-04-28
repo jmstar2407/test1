@@ -1,11 +1,11 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport"
     content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>miColmApp – POS Colmados RD</title>
+  <title>miColmApp â€“ POS Colmados RD</title>
   <link
     href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&family=Nunito:wght@400;500;600;700&display=swap"
     rel="stylesheet">
@@ -13,12 +13,13 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <!-- Signature Pad para dibujo -->
   <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.1.7/dist/signature_pad.umd.min.js"></script>
-  <link rel="stylesheet" href="./src/styles/main.css" />
-  <link rel="stylesheet" href="./src/styles/virtual-keyboard.css" />
+  <link rel="stylesheet" href="./css/styles.css" />
+  <link rel="stylesheet" href="./css/virtualKeyboard.css" />
+  <link rel="stylesheet" href="./css/extras.css" />
   <script>
-   /* // Deshabilitar clic derecho en toda la aplicación
+   /* // Deshabilitar clic derecho en toda la aplicaciÃ³n
     document.addEventListener('contextmenu', function (e) { e.preventDefault(); return false; });
-    // Prevenir zoom por pellizco en móviles (complementa el viewport meta)
+    // Prevenir zoom por pellizco en mÃ³viles (complementa el viewport meta)
     document.addEventListener('touchstart', function (e) {
       if (e.touches.length > 1) e.preventDefault();
     }, { passive: false });
@@ -39,7 +40,7 @@
 
   <!-- LOADING SCREEN -->
   <div id="loading-screen">
-    <div class="ls-icon">🏪</div>
+    <div class="ls-icon">ðŸª</div>
     <h2>miColmApp</h2>
     <p>Cargando sistema...</p>
     <div class="progress-bar">
@@ -51,18 +52,18 @@
   <div id="auth-screen">
     <div class="auth-card">
       <div class="auth-logo">
-        <div class="logo-icon">🏪</div>
+        <div class="logo-icon">ðŸª</div>
         <h1>miColmApp</h1>
         <p>Sistema POS para Colmados RD</p>
       </div>
       <div class="auth-tabs">
-        <button class="auth-tab active" onclick="authTab('login')">Iniciar Sesión</button>
+        <button class="auth-tab active" onclick="authTab('login')">Iniciar SesiÃ³n</button>
         <button class="auth-tab" onclick="authTab('registro')">Registrar Colmado</button>
       </div>
       <div id="auth-login">
-        <div class="form-group"><label>Correo Electrónico</label><input type="email" id="login-email"
+        <div class="form-group"><label>Correo ElectrÃ³nico</label><input type="email" id="login-email"
             placeholder="admin@micolmado.com"></div>
-        <div class="form-group"><label>Contraseña</label><input type="password" id="login-pass" placeholder="••••••••">
+        <div class="form-group"><label>ContraseÃ±a</label><input type="password" id="login-pass" placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢">
         </div>
         <button class="btn-primary" onclick="login()"><i class="fas fa-sign-in-alt"></i> Entrar al Sistema</button>
       </div>
@@ -72,22 +73,22 @@
         <div class="form-group">
           <label>Tipo de Negocio</label>
           <div id="reg-tipo-btns" class="tipo-negocio-btns">
-            <button type="button" class="tipo-negocio-btn activo" data-tipo="colmado" onclick="selTipoNegocio('reg','colmado')"><span style="font-size:1.4rem;">🏪</span>Colmado</button>
-            <button type="button" class="tipo-negocio-btn" data-tipo="restaurante" onclick="selTipoNegocio('reg','restaurante')"><span style="font-size:1.4rem;">🍽️</span>Restaurante</button>
-            <button type="button" class="tipo-negocio-btn" data-tipo="farmacia" onclick="selTipoNegocio('reg','farmacia')"><span style="font-size:1.4rem;">💊</span>Farmacia</button>
+            <button type="button" class="tipo-negocio-btn activo" data-tipo="colmado" onclick="selTipoNegocio('reg','colmado')"><span style="font-size:1.4rem;">ðŸª</span>Colmado</button>
+            <button type="button" class="tipo-negocio-btn" data-tipo="restaurante" onclick="selTipoNegocio('reg','restaurante')"><span style="font-size:1.4rem;">ðŸ½ï¸</span>Restaurante</button>
+            <button type="button" class="tipo-negocio-btn" data-tipo="bebida" onclick="selTipoNegocio('reg','bebida')"><span style="font-size:1.4rem;">ðŸ¹</span>Bebidas</button>
           </div>
           <input type="hidden" id="reg-tipo" value="colmado">
         </div>
         <div class="form-group"><label>RNC (opcional)</label><input type="text" id="reg-rnc" placeholder="101-12345-6">
         </div>
-        <div class="form-group"><label>Dirección</label><input type="text" id="reg-direccion"
+        <div class="form-group"><label>DirecciÃ³n</label><input type="text" id="reg-direccion"
             placeholder="Calle Duarte #5, Santo Domingo"></div>
-        <div class="form-group"><label>Teléfono</label><input type="text" id="reg-telefono" placeholder="809-555-0000">
+        <div class="form-group"><label>TelÃ©fono</label><input type="text" id="reg-telefono" placeholder="809-555-0000">
         </div>
         <div class="form-group"><label>Correo Admin</label><input type="email" id="reg-email"
             placeholder="admin@tucolmado.com"></div>
-        <div class="form-group"><label>Contraseña</label><input type="password" id="reg-pass"
-            placeholder="Mínimo 6 caracteres"></div>
+        <div class="form-group"><label>ContraseÃ±a</label><input type="password" id="reg-pass"
+            placeholder="MÃ­nimo 6 caracteres"></div>
         <button class="btn-primary" onclick="registrar()"><i class="fas fa-store"></i> Registrar Negocio</button>
       </div>
       <div id="auth-msg"></div>
@@ -98,7 +99,7 @@
   <div id="negocio-selector-screen">
     <div class="auth-card" style="max-width:520px;">
       <div class="auth-logo">
-        <div class="logo-icon">🏪</div>
+        <div class="logo-icon">ðŸª</div>
         <h1>miColmApp</h1>
         <p id="ns-bienvenida">Selecciona un negocio para administrar</p>
       </div>
@@ -107,7 +108,7 @@
         <i class="fas fa-plus-circle"></i> Agregar otro negocio
       </button>
       <button onclick="logoutTotal()" class="btn-logout-total">
-        <i class="fas fa-sign-out-alt"></i> Cerrar sesión completamente
+        <i class="fas fa-sign-out-alt"></i> Cerrar sesiÃ³n completamente
       </button>
     </div>
   </div>
@@ -115,24 +116,24 @@
   <!-- AGREGAR NEGOCIO MODAL (en selector) -->
   <div id="ns-modal-nuevo">
     <div class="auth-card ns-modal-card">
-      <button onclick="cerrarAgregarNegocio()" class="ns-modal-close">✕</button>
+      <button onclick="cerrarAgregarNegocio()" class="ns-modal-close">âœ•</button>
       <div class="auth-logo ns-modal-logo">
-        <div class="logo-icon" style="font-size:1.8rem;">🏪</div>
+        <div class="logo-icon" style="font-size:1.8rem;">ðŸª</div>
         <h2 style="font-size:1.3rem;margin:4px 0;">Registrar Nuevo Negocio</h2>
       </div>
       <div class="form-group"><label>Nombre del Negocio</label><input type="text" id="ns-reg-nombre" placeholder="Colmado El Buen Precio"></div>
       <div class="form-group">
         <label>Tipo de Negocio</label>
         <div id="ns-reg-tipo-btns" class="tipo-negocio-btns">
-          <button type="button" class="tipo-negocio-btn activo" data-tipo="colmado" onclick="selTipoNegocio('ns','colmado')"><span style="font-size:1.4rem;">🏪</span>Colmado</button>
-          <button type="button" class="tipo-negocio-btn" data-tipo="restaurante" onclick="selTipoNegocio('ns','restaurante')"><span style="font-size:1.4rem;">🍽️</span>Restaurante</button>
-          <button type="button" class="tipo-negocio-btn" data-tipo="farmacia" onclick="selTipoNegocio('ns','farmacia')"><span style="font-size:1.4rem;">💊</span>Farmacia</button>
+          <button type="button" class="tipo-negocio-btn activo" data-tipo="colmado" onclick="selTipoNegocio('ns','colmado')"><span style="font-size:1.4rem;">ðŸª</span>Colmado</button>
+          <button type="button" class="tipo-negocio-btn" data-tipo="restaurante" onclick="selTipoNegocio('ns','restaurante')"><span style="font-size:1.4rem;">ðŸ½ï¸</span>Restaurante</button>
+          <button type="button" class="tipo-negocio-btn" data-tipo="bebida" onclick="selTipoNegocio('ns','bebida')"><span style="font-size:1.4rem;">ðŸ¹</span>Bebidas</button>
         </div>
         <input type="hidden" id="ns-reg-tipo" value="colmado">
       </div>
       <div class="form-group"><label>RNC (opcional)</label><input type="text" id="ns-reg-rnc" placeholder="101-12345-6"></div>
-      <div class="form-group"><label>Dirección</label><input type="text" id="ns-reg-direccion" placeholder="Calle Duarte #5, Santo Domingo"></div>
-      <div class="form-group"><label>Teléfono</label><input type="text" id="ns-reg-telefono" placeholder="809-555-0000"></div>
+      <div class="form-group"><label>DirecciÃ³n</label><input type="text" id="ns-reg-direccion" placeholder="Calle Duarte #5, Santo Domingo"></div>
+      <div class="form-group"><label>TelÃ©fono</label><input type="text" id="ns-reg-telefono" placeholder="809-555-0000"></div>
       <div id="ns-reg-msg" class="ns-reg-msg"></div>
       <button class="btn-primary" onclick="registrarNuevoNegocio()"><i class="fas fa-store"></i> Crear Negocio</button>
     </div>
@@ -143,7 +144,7 @@
     <!-- NAVBAR -->
     <nav class="navbar">
       <div class="navbar-brand">
-        <div class="brand-icon">🏪</div>
+        <div class="brand-icon">ðŸª</div>
         <div>
           <h1><span style="color: #4a5568">mi</span><span style="color: #1a2135">Colm</span><span
               style="color: #fc4f62;">app</span></h1>
@@ -156,47 +157,47 @@
         <i class="fas fa-flask"></i> MODO DE PRUEBA
       </div>
       <!-- OFFLINE BADGE -->
-      <div id="offline-badge" style="display:none;align-items:center;gap:6px;background:#e03131;color:#fff;font-weight:800;font-size:12px;padding:5px 12px;border-radius:20px;white-space:nowrap;letter-spacing:0.3px;flex-shrink:0;cursor:default;" title="Sistema funcionando en modo offline. Los cambios se guardan localmente y se sincronizan automáticamente al volver la conexión.">
-        <i class="fas fa-wifi-slash"></i> SIN CONEXIÓN
+      <div id="offline-badge" style="display:none;align-items:center;gap:6px;background:#e03131;color:#fff;font-weight:800;font-size:12px;padding:5px 12px;border-radius:20px;white-space:nowrap;letter-spacing:0.3px;flex-shrink:0;cursor:default;" title="Sistema funcionando en modo offline. Los cambios se guardan localmente y se sincronizan automÃ¡ticamente al volver la conexiÃ³n.">
+        <i class="fas fa-wifi-slash"></i> SIN CONEXIÃ“N
       </div>
       <div class="nav-datetime" id="nav-datetime"></div>
       <div class="nav-buttons" id="nav-buttons"></div>
 
-      <!-- FAB CARRITO en navbar (solo mobile + sección POS) -->
+      <!-- FAB CARRITO en navbar (solo mobile + secciÃ³n POS) -->
       <button id="mob-carrito-fab" onclick="mobToggleCarrito()">
         <span class="fab-icon"><i id="fab-icon-i" class="fas fa-shopping-cart"></i></span>
         <span id="fab-label">Ver Carrito</span>
         <span class="fab-badge" id="fab-badge">0</span>
       </button>
 
-      <!-- MENÚ 3 PUNTOS -->
+      <!-- MENÃš 3 PUNTOS -->
       <div class="nav-menu-wrap" id="nav-menu-wrap">
         <button class="nav-menu-btn" id="nav-menu-btn" onclick="toggleNavMenu(event)" title="Opciones">
           <span></span><span></span><span></span>
         </button>
         <div class="nav-menu-dropdown" id="nav-menu-dropdown">
-          <div class="nav-menu-email" id="nav-menu-email"><i class="fas fa-user-circle"></i> <span id="nav-email-txt">—</span></div>
+          <div class="nav-menu-email" id="nav-menu-email"><i class="fas fa-user-circle"></i> <span id="nav-email-txt">â€”</span></div>
           <div class="nav-menu-divider"></div>
           <button class="nav-menu-item" onclick="closeNavMenu();cambiarNegocio()"><i class="fas fa-store"></i> Mis Negocios</button>
-          <button class="nav-menu-item danger" onclick="closeNavMenu();logoutTotal()"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</button>
+          <button class="nav-menu-item danger" onclick="closeNavMenu();logoutTotal()"><i class="fas fa-sign-out-alt"></i> Cerrar SesiÃ³n</button>
         </div>
       </div>
     </nav>
 
-    <!-- BARRA DE NAVEGACIÓN INFERIOR MOBILE -->
+    <!-- BARRA DE NAVEGACIÃ“N INFERIOR MOBILE -->
     <div id="mobile-bottom-nav"></div>
     <div id="caja-pendiente-banner">
       <i class="fas fa-exclamation-triangle"></i>
-      <span>⚠️ La caja no está abierta. No se pueden realizar ventas.</span>
+      <span>âš ï¸ La caja no estÃ¡ abierta. No se pueden realizar ventas.</span>
       <button onclick="showPage('caja')">Ir a Caja</button>
     </div>
 
     <div class="content">
       <!-- POS PAGE -->
       <div class="page" id="page-pos">
-        <!-- COLUMNA IZQUIERDA: Categorías -->
+        <!-- COLUMNA IZQUIERDA: CategorÃ­as -->
         <div class="pos-left">
-          <div class="pos-cats-title">Categorías</div>
+          <div class="pos-cats-title">CategorÃ­as</div>
           <div class="pos-categorias-lista" id="pos-categorias-lista"></div>
         </div>
         <!-- COLUMNA CENTRAL: Productos -->
@@ -211,16 +212,16 @@
                   style="padding-left:34px;padding-right:32px;width:100%;box-sizing:border-box;"
                   oninput="buscarProductos(this.value);_syncClearBtn('pos-buscar','pos-buscar-clear');">
                 <button id="pos-buscar-clear"
-                  onpointerdown="(function(e){e.preventDefault();var inp=document.getElementById('pos-buscar');inp.value='';inp.dispatchEvent(new Event('input',{bubbles:true}));if(window.vkbTarget===inp){window.vkbCursorPos=0;}else{inp.focus();};})(event);" title="Limpiar búsqueda" style="display:none;">&#x2715;</button>
+                  onpointerdown="(function(e){e.preventDefault();var inp=document.getElementById('pos-buscar');inp.value='';inp.dispatchEvent(new Event('input',{bubbles:true}));if(window.vkbTarget===inp){window.vkbCursorPos=0;}else{inp.focus();};})(event);" title="Limpiar bÃºsqueda" style="display:none;">&#x2715;</button>
               </div>
               <div class="pos-direccion-wrap" style="position:relative;">
                 <i class="fas fa-map-marker-alt" style="color:var(--gris-suave);font-size:13px;flex-shrink:0;"></i>
-                <input type="text" id="pos-direccion-cliente" placeholder="Dirección del cliente..."
+                <input type="text" id="pos-direccion-cliente" placeholder="DirecciÃ³n del cliente..."
                   style="border:none;outline:none;font-family:var(--font-body);font-size:1.1rem;flex:1;min-width:140px;background:transparent;padding-right:28px;"
                   oninput="_getTabActiva()&&(_getTabActiva().direccion=this.value,_guardarTabsEnStorage());_syncClearBtn('pos-direccion-cliente','pos-dir-clear');">
                 <button id="pos-dir-clear"
                   type="button"
-                  title="Limpiar dirección">&#x2715;</button>
+                  title="Limpiar direcciÃ³n">&#x2715;</button>
               </div>
               <button class="icon-btn grid-btn" id="btn-orden-az" onclick="toggleOrdenProductos()" title="Orden A-Z / Original">
                 <i class="fas fa-sort-alpha-down"></i>
@@ -235,7 +236,7 @@
               <button class="icon-btn scan-btn" onclick="abrirScaner()"><i class="fas fa-barcode"></i></button>
             </div>
             <div class="pos-productos-area" id="pos-productos-area"></div>
-            <!-- BARRA DE FACTURAS MÚLTIPLES -->
+            <!-- BARRA DE FACTURAS MÃšLTIPLES -->
             <div class="facturas-tabs-bar-wrapper" id="facturas-tabs-bar-wrapper">
               <button class="tabs-scroll-btn left" id="tabs-scroll-left" onclick="scrollTabs(-1)"
                 aria-label="Scroll izquierda">&#8249;</button>
@@ -306,7 +307,7 @@
               <div style="color:#a0aec0;font-size:11px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;margin-bottom:2px;">Editando producto</div>
               <div id="meic-nombre" style="color:#fff;font-size:16px;font-weight:700;"></div>
             </div>
-            <button onclick="cerrarModalEditarItem()" style="background:rgba(255,255,255,0.12);border:none;color:#fff;width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">✕</button>
+            <button onclick="cerrarModalEditarItem()" style="background:rgba(255,255,255,0.12);border:none;color:#fff;width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">âœ•</button>
           </div>
           <!-- Precio actual badge -->
           <div style="padding:14px 20px 0;flex-shrink:0;">
@@ -329,7 +330,7 @@
             <div>
               <label style="display:block;font-size:12px;font-weight:700;color:#4a5568;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:6px;">Cantidad</label>
               <div style="display:flex;align-items:center;gap:10px;">
-                <button onclick="meicCambiarQty(-1)" style="width:40px;height:40px;border-radius:10px;border:2px solid #e2e8f0;background:#f8fafc;font-size:20px;font-weight:700;color:#1a2135;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.15s;" onmousedown="this.style.background='#e2e8f0'" onmouseup="this.style.background='#f8fafc'">−</button>
+                <button onclick="meicCambiarQty(-1)" style="width:40px;height:40px;border-radius:10px;border:2px solid #e2e8f0;background:#f8fafc;font-size:20px;font-weight:700;color:#1a2135;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.15s;" onmousedown="this.style.background='#e2e8f0'" onmouseup="this.style.background='#f8fafc'">âˆ’</button>
                 <input id="meic-qty" type="number" min="0.01" step="1" style="flex:1;border:2px solid #e2e8f0;background:#f8fafc;border-radius:10px;padding:10px 12px;font-size:16px;font-weight:700;color:#1a2135;text-align:center;outline:none;" oninput="meicSyncTotalDesdeQty();meicActualizarPreview()" onfocus="this.style.borderColor='#4299e1'" onblur="this.style.borderColor='#e2e8f0'">
                 <button onclick="meicCambiarQty(1)" style="width:40px;height:40px;border-radius:10px;border:2px solid #e2e8f0;background:#f8fafc;font-size:20px;font-weight:700;color:#1a2135;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.15s;" onmousedown="this.style.background='#e2e8f0'" onmouseup="this.style.background='#f8fafc'">+</button>
               </div>
@@ -355,7 +356,7 @@
           <!-- Footer -->
           <div style="padding:16px 20px;border-top:1px solid #e2e8f0;display:flex;gap:10px;flex-shrink:0;background:#fafbfc;">
             <button onclick="cerrarModalEditarItem()" style="flex:1;padding:13px;border:2px solid #e2e8f0;background:#fff;border-radius:10px;font-size:14px;font-weight:700;color:#4a5568;cursor:pointer;">Cancelar</button>
-            <button onclick="meicGuardarCambios()" style="flex:2;padding:13px;border:none;background:linear-gradient(135deg,#1a2135,#2d3a56);border-radius:10px;font-size:14px;font-weight:800;color:#fff;cursor:pointer;letter-spacing:0.3px;">✓ Aplicar Cambios</button>
+            <button onclick="meicGuardarCambios()" style="flex:2;padding:13px;border:none;background:linear-gradient(135deg,#1a2135,#2d3a56);border-radius:10px;font-size:14px;font-weight:800;color:#fff;cursor:pointer;letter-spacing:0.3px;">âœ“ Aplicar Cambios</button>
           </div>
         </div>
       </div>
@@ -379,7 +380,7 @@
                   <tr>
                     <th>Hora</th>
                     <th>Tipo</th>
-                    <th>Descripción</th>
+                    <th>DescripciÃ³n</th>
                     <th>Empleado</th>
                     <th>Monto</th>
                   </tr>
@@ -417,7 +418,7 @@
           <div class="page-head">
             <div>
               <div class="page-title">Facturas</div>
-              <div class="page-subtitle">Consulta y gestión de facturas</div>
+              <div class="page-subtitle">Consulta y gestiÃ³n de facturas</div>
             </div>
           </div>
 
@@ -437,7 +438,7 @@
             <input type="date" id="fact-fecha-ini" onchange="filtrarFacturas()">
             <input type="date" id="fact-fecha-fin" onchange="filtrarFacturas()">
             <select id="fact-metodo" onchange="filtrarFacturas()">
-              <option value="">Todos los métodos</option>
+              <option value="">Todos los mÃ©todos</option>
               <option value="efectivo">Efectivo</option>
               <option value="transferencia">Transferencia</option>
               <option value="tarjeta">Tarjeta</option>
@@ -450,10 +451,10 @@
               <thead>
                 <tr>
                   <th># Factura</th>
-                  <th>Dirección</th>
+                  <th>DirecciÃ³n</th>
                   <th>Hora / Fecha</th>
                   <th>Total</th>
-                  <th>Método</th>
+                  <th>MÃ©todo</th>
                   <th>Empleado</th>
                   <th>NCF</th>
                   <th>Estado</th>
@@ -472,15 +473,15 @@
           <div class="page-head">
             <div>
               <div class="page-title">Inventario</div>
-              <div class="page-subtitle">Gestión de productos y categorías</div>
+              <div class="page-subtitle">GestiÃ³n de productos y categorÃ­as</div>
             </div>
             <div class="inv-head-actions">
               <button class="btn-ordenar" id="btn-modo-ordenar" onclick="toggleModoOrden()"><i
                   class="fas fa-arrows-alt"></i> Ordenar<span class="guardando-orden" id="guardando-orden-indicator"><i class="fas fa-circle-notch fa-spin"></i> Guardando...</span></button>
-              <button class="btn-sm azul" onclick="exportarInventarioCompleto()" title="Exportar todo el inventario con imágenes"><i class="fas fa-file-export"></i> Exportar</button>
+              <button class="btn-sm azul" onclick="exportarInventarioCompleto()" title="Exportar todo el inventario con imÃ¡genes"><i class="fas fa-file-export"></i> Exportar</button>
               <button class="btn-sm naranja" onclick="document.getElementById('inv-import-input').click()" title="Importar inventario desde archivo"><i class="fas fa-file-import"></i> Importar</button>
               <input type="file" id="inv-import-input" accept=".json" style="display:none" onchange="importarInventarioCompleto(this)">
-              <button class="btn-sm verde" id="btn-cat-accion" onclick="abrirModalCategoria()"><i class="fas fa-folder-plus"></i> Categoría</button>
+              <button class="btn-sm verde" id="btn-cat-accion" onclick="abrirModalCategoria()"><i class="fas fa-folder-plus"></i> CategorÃ­a</button>
             </div>
           </div>
           <div class="inv-controles inv-controles-wrap">
@@ -489,17 +490,17 @@
             <div id="inv-buscar-dropdown" class="inv-buscar-dropdown">
             </div>
           </div>
-          <!-- PANEL ESTADÍSTICAS INVENTARIO -->
+          <!-- PANEL ESTADÃSTICAS INVENTARIO -->
           <div id="inv-stats-panel" style="display:flex;gap:12px;flex-wrap:wrap;margin:0 0 14px 0;">
             <div style="display:flex;align-items:center;gap:10px;background:#f0fdf4;border:1.5px solid #bbf7d0;border-radius:12px;padding:10px 18px;flex:1;min-width:160px;">
-              <span style="font-size:1.6rem;">📦</span>
+              <span style="font-size:1.6rem;">ðŸ“¦</span>
               <div>
                 <div style="font-size:11px;color:#166534;font-weight:700;letter-spacing:0.3px;text-transform:uppercase;">Productos Registrados</div>
                 <div id="inv-stat-total-prods" style="font-size:1.4rem;font-weight:800;color:#15803d;">0</div>
               </div>
             </div>
             <div style="display:flex;align-items:center;gap:10px;background:#eff6ff;border:1.5px solid #bfdbfe;border-radius:12px;padding:10px 18px;flex:1;min-width:160px;">
-              <span style="font-size:1.6rem;">💰</span>
+              <span style="font-size:1.6rem;">ðŸ’°</span>
               <div>
                 <div style="font-size:11px;color:#1e40af;font-weight:700;letter-spacing:0.3px;text-transform:uppercase;">Dinero Invertido</div>
                 <div id="inv-stat-dinero" style="font-size:1.4rem;font-weight:800;color:#1d4ed8;">RD$ 0.00</div>
@@ -515,8 +516,8 @@
         <div class="page-inner-full">
           <div class="page-head">
             <div>
-              <div class="page-title">Estadísticas & Contabilidad</div>
-              <div class="page-subtitle">Análisis de ventas y balance financiero</div>
+              <div class="page-title">EstadÃ­sticas & Contabilidad</div>
+              <div class="page-subtitle">AnÃ¡lisis de ventas y balance financiero</div>
             </div>
             <div class="stats-filtros"><input type="date" id="stats-fecha-ini"><input type="date"
                 id="stats-fecha-fin"><button class="btn-sm verde" onclick="calcularEstadisticas()"><i
@@ -525,38 +526,38 @@
           </div>
           <div class="stats-cards" id="stats-cards">
             <div class="stat-card verde">
-              <div class="stat-icon">💰</div>
+              <div class="stat-icon">ðŸ’°</div>
               <div class="stat-valor" id="stat-ventas-total">RD$ 0</div>
               <div class="stat-label">Ventas Totales</div>
             </div>
             <div class="stat-card azul">
-              <div class="stat-icon">🧾</div>
+              <div class="stat-icon">ðŸ§¾</div>
               <div class="stat-valor" id="stat-num-facturas">0</div>
               <div class="stat-label">Facturas Emitidas</div>
             </div>
             <div class="stat-card amarillo">
-              <div class="stat-icon">📦</div>
+              <div class="stat-icon">ðŸ“¦</div>
               <div class="stat-valor" id="stat-prods-vendidos">0</div>
               <div class="stat-label">Productos Vendidos</div>
             </div>
             <div class="stat-card rojo">
-              <div class="stat-icon">📊</div>
+              <div class="stat-icon">ðŸ“Š</div>
               <div class="stat-valor" id="stat-promedio">RD$ 0</div>
               <div class="stat-label">Ticket Promedio</div>
             </div>
           </div>
           <div class="charts-grid mt-20">
             <div class="chart-card">
-              <h4>Ventas por Día</h4>
+              <h4>Ventas por DÃ­a</h4>
               <div class="chart-wrapper"><canvas id="chart-ventas"></canvas></div>
             </div>
             <div class="chart-card">
-              <h4>Productos Más Vendidos</h4>
+              <h4>Productos MÃ¡s Vendidos</h4>
               <div class="chart-wrapper"><canvas id="chart-productos"></canvas></div>
             </div>
           </div>
           <div class="contab-section">
-            <div class="page-title contab-title">📒 Contabilidad</div>
+            <div class="page-title contab-title">ðŸ“’ Contabilidad</div>
             <div class="contab-grid">
               <div class="contab-card ingreso">
                 <h4>Ingresos (Ventas)</h4>
@@ -573,7 +574,7 @@
             </div>
           </div>
           <div class="chart-card metodos-chart-card">
-            <h4>Métodos de Pago</h4>
+            <h4>MÃ©todos de Pago</h4>
             <div class="metodos-chart-inner"><canvas id="chart-metodos"></canvas></div>
           </div>
         </div>
@@ -583,7 +584,7 @@
       <div class="page" id="page-config">
         <div class="page-inner-config">
           <div class="page-head-simple">
-            <div class="page-title">Configuración</div>
+            <div class="page-title">ConfiguraciÃ³n</div>
             <div class="page-subtitle">Datos del negocio, impuestos y empleados</div>
           </div>
           <div class="config-section mb-20">
@@ -593,17 +594,17 @@
             <div class="config-grid">
               <div class="config-field"><label>Nombre del Colmado</label><input type="text" id="cfg-nombre"></div>
               <div class="config-field"><label>RNC</label><input type="text" id="cfg-rnc"></div>
-              <div class="config-field"><label>Dirección</label><input type="text" id="cfg-direccion"></div>
+              <div class="config-field"><label>DirecciÃ³n</label><input type="text" id="cfg-direccion"></div>
               <div class="config-field"><label>Prefijo NCF</label><input type="text" id="cfg-ncf-prefijo"
                   placeholder="B01"></div>
               <div class="config-field"><label>Secuencia NCF actual</label><input type="number" id="cfg-ncf-seq"
                   placeholder="1"></div>
             </div>
-            <!-- TELÉFONO Y WHATSAPP CON SELECTOR DE PAÍS -->
+            <!-- TELÃ‰FONO Y WHATSAPP CON SELECTOR DE PAÃS -->
             <div class="cfg-section-pad">
               <div class="cfg-tel-grid">
                 <div>
-                  <label class="cfg-tel-label"><i class="fas fa-phone" style="color:#1971c2;"></i> Teléfono de Contacto</label>
+                  <label class="cfg-tel-label"><i class="fas fa-phone" style="color:#1971c2;"></i> TelÃ©fono de Contacto</label>
                   <div class="cfg-tel-row">
                     <select id="cfg-tel-pais" class="cfg-tel-select" onchange="onChangeTelPais(this.value,'cfg-telefono','cfg-tel-preview')"></select>
                     <input type="tel" id="cfg-telefono" class="cfg-tel-input" placeholder="809-555-0000" oninput="autoDetectPaisTel(this.value,'cfg-tel-pais','cfg-tel-preview')">
@@ -620,18 +621,18 @@
                 </div>
               </div>
             </div>
-            <div class="cfg-save-pad"><button class="btn-sm verde" onclick="guardarConfig()"><i class="fas fa-save"></i> Guardar Configuración</button></div>
+            <div class="cfg-save-pad"><button class="btn-sm verde" onclick="guardarConfig()"><i class="fas fa-save"></i> Guardar ConfiguraciÃ³n</button></div>
           </div>
           <div class="config-section mb-20">
             <div class="section-header">
-              <h3><i class="fas fa-percent"></i> Configuración de Impuestos (ITBIS)</h3>
+              <h3><i class="fas fa-percent"></i> ConfiguraciÃ³n de Impuestos (ITBIS)</h3>
             </div>
             <div class="config-grid">
               <div class="config-field"><label>Porcentaje ITBIS (%)</label><input type="number" id="cfg-itbis-pct"
                   value="18" min="0" max="100"></div>
             </div>
             <div class="toggle-row">
-              <div><label>El cliente paga el ITBIS</label><small>Si está activo, el ITBIS se suma al total del
+              <div><label>El cliente paga el ITBIS</label><small>Si estÃ¡ activo, el ITBIS se suma al total del
                   cliente</small></div><label class="toggle"><input type="checkbox" id="cfg-itbis-cliente" checked><span
                   class="toggle-slider"></span></label>
             </div>
@@ -656,7 +657,7 @@
             </div>
             <div id="modo-prueba-warning" style="display:none;margin:12px 16px 16px;padding:12px 16px;background:#fff3cd;border:1px solid #f59f00;border-radius:10px;font-size:13px;color:#7d5a00;font-weight:600;">
               <i class="fas fa-exclamation-triangle" style="color:#f59f00;margin-right:6px;"></i>
-              Modo de prueba ACTIVO — Las facturas no se guardarán ni afectarán el inventario.
+              Modo de prueba ACTIVO â€” Las facturas no se guardarÃ¡n ni afectarÃ¡n el inventario.
             </div>
           </div>
 
@@ -679,7 +680,7 @@
     <div class="modal">
       <div class="modal-header">
         <h3><i class="fas fa-balance-scale"></i> Cantidad a detallar</h3>
-        <button class="modal-close modal-close-hidden" onclick="cerrarModal('modal-detalle-unidad')">✕</button>
+        <button class="modal-close modal-close-hidden" onclick="cerrarModal('modal-detalle-unidad')">âœ•</button>
       </div>
       <div class="modal-body detalle-unidad-body">
         <div class="detalle-prod-nombre" id="du-nombre"></div>
@@ -724,7 +725,7 @@
           <button class="detalle-key" onclick="duTecla('9')">9</button>
           <button class="detalle-key" onclick="duTecla('.')">.</button>
           <button class="detalle-key" onclick="duTecla('0')">0</button>
-          <button class="detalle-key del" onclick="duTecla('⌫')"><svg xmlns="http://www.w3.org/2000/svg" width="24"
+          <button class="detalle-key del" onclick="duTecla('âŒ«')"><svg xmlns="http://www.w3.org/2000/svg" width="24"
               height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
               stroke-linejoin="round" class="lucide lucide-delete-icon lucide-delete">
               <path
@@ -750,7 +751,7 @@
     <div class="modal modal-facturar-wide">
       <div class="modal-header">
         <h3><i class="fas fa-receipt"></i> Procesar Factura</h3><button class="modal-close"
-          onclick="cerrarModal('modal-facturar')">✕</button>
+          onclick="cerrarModal('modal-facturar')">âœ•</button>
       </div>
       <div class="modal-body modal-facturar-body">
 
@@ -782,8 +783,8 @@
         <!-- ===== COLUMNA DERECHA: PAGO ===== -->
         <div class="mf-col-pago">
 
-          <!-- Métodos de pago -->
-          <div class="mf-seccion-label">Método de Pago</div>
+          <!-- MÃ©todos de pago -->
+          <div class="mf-seccion-label">MÃ©todo de Pago</div>
           <div class="metodo-pago-btns mf-metodos">
             <button class="mpago-btn selected" onclick="seleccionarMetodo('efectivo')"><i
                 class="fas fa-money-bill-wave"></i> Efectivo</button>
@@ -795,7 +796,7 @@
               Mixto</button>
           </div>
 
-          <!-- SECCIÓN EFECTIVO SIMPLE -->
+          <!-- SECCIÃ“N EFECTIVO SIMPLE -->
           <div class="efectivo-section visible" id="efectivo-section">
             <div class="mf-seccion-label">Dinero Recibido</div>
             <div class="monto-recibido-row">
@@ -804,7 +805,7 @@
                 placeholder="0.00" oninput="calcularCambio()" style="text-align:right;">
             </div>
             <div class="cambio-display" id="cambio-display" style="display: flex; background: rgb(248, 215, 218);">
-              <span>💵 Cambio a entregar:</span><span id="cambio-valor">RD$ 0.00</span>
+              <span>ðŸ’µ Cambio a entregar:</span><span id="cambio-valor">RD$ 0.00</span>
             </div>
             <div class="teclado-num mf-teclado">
               <button class="tec-btn" onclick="tecNumero('1')">1</button>
@@ -818,15 +819,15 @@
               <button class="tec-btn" onclick="tecNumero('9')">9</button>
               <button class="tec-btn rojo" onclick="tecNumero('C')">C</button>
               <button class="tec-btn" onclick="tecNumero('0')">0</button>
-              <button class="tec-btn rojo" onclick="tecNumero('⌫')">⌫</button>
+              <button class="tec-btn rojo" onclick="tecNumero('âŒ«')">âŒ«</button>
             </div>
           </div>
 
-          <!-- SECCIÓN PAGO MIXTO -->
+          <!-- SECCIÃ“N PAGO MIXTO -->
           <div id="mixto-section" style="display:none;">
             
             <div class="mixto-wrapper">
-              <div class="mixto-split-label">💳 + 💵 Pago Combinado</div>
+              <div class="mixto-split-label">ðŸ’³ + ðŸ’µ Pago Combinado</div>
               <div style="margin-bottom:10px;">
                 <div style="font-size:11px;font-weight:700;color:#666;margin-bottom:6px;">Segunda forma de pago:</div>
                 <div class="mixto-sub-metodo-btns">
@@ -839,18 +840,18 @@
               </div>
               <div class="mixto-campo" id="mixto-campo-efectivo" onclick="mixtoActivarCampo('efectivo')">
                 <div class="mixto-campo-header">
-                  <span class="mixto-campo-nombre">💵 EFECTIVO</span>
+                  <span class="mixto-campo-nombre">ðŸ’µ EFECTIVO</span>
                   <span id="mixto-btn-resto-ef" class="mixto-resto-badge verde"
-                    onclick="event.stopPropagation();mixtoPonerResto('efectivo')" title="Poner el resto">↑ Resto</span>
+                    onclick="event.stopPropagation();mixtoPonerResto('efectivo')" title="Poner el resto">â†‘ Resto</span>
                 </div>
                 <div class="mixto-campo-val" id="mixto-display-efectivo"><span class="placeholder">Toca para
                     ingresar</span></div>
               </div>
               <div class="mixto-campo" id="mixto-campo-elec" onclick="mixtoActivarCampo('elec')">
                 <div class="mixto-campo-header">
-                  <span class="mixto-campo-nombre" id="mixto-elec-label">🏦 TRANSFERENCIA</span>
+                  <span class="mixto-campo-nombre" id="mixto-elec-label">ðŸ¦ TRANSFERENCIA</span>
                   <span id="mixto-btn-resto-elec" class="mixto-resto-badge verde"
-                    onclick="event.stopPropagation();mixtoPonerResto('elec')" title="Poner el resto">↑ Resto</span>
+                    onclick="event.stopPropagation();mixtoPonerResto('elec')" title="Poner el resto">â†‘ Resto</span>
                 </div>
                 <div class="mixto-campo-val" id="mixto-display-elec"><span class="placeholder">Toca para ingresar</span>
                 </div>
@@ -867,13 +868,13 @@
                 <button class="mixto-key" onclick="mixtoTecla('9')">9</button>
                 <button class="mixto-key" onclick="mixtoTecla('.')">.</button>
                 <button class="mixto-key" onclick="mixtoTecla('0')">0</button>
-                <button class="mixto-key del" onclick="mixtoTecla('⌫')">⌫</button>
-                <button class="mixto-key ok" onclick="mixtoTecla('OK')">✓ Aplicar &amp; Ver resumen</button>
+                <button class="mixto-key del" onclick="mixtoTecla('âŒ«')">âŒ«</button>
+                <button class="mixto-key ok" onclick="mixtoTecla('OK')">âœ“ Aplicar &amp; Ver resumen</button>
               </div>
               <div class="mixto-resumen" id="mixto-resumen">
-                <div class="mixto-resumen-row"><span class="lbl">💵 Efectivo</span><span class="val"
+                <div class="mixto-resumen-row"><span class="lbl">ðŸ’µ Efectivo</span><span class="val"
                     id="mixto-res-ef">RD$ 0.00</span></div>
-                <div class="mixto-resumen-row"><span class="lbl" id="mixto-res-elec-lbl">🏦 Transferencia</span><span
+                <div class="mixto-resumen-row"><span class="lbl" id="mixto-res-elec-lbl">ðŸ¦ Transferencia</span><span
                     class="val" id="mixto-res-elec">RD$ 0.00</span></div>
                 <div class="mixto-resumen-row" style="border-top:1px dashed #dee2e6;margin-top:6px;padding-top:6px;">
                   <span class="lbl">Total pagado</span><span class="val" id="mixto-res-total">RD$ 0.00</span>
@@ -884,7 +885,7 @@
           </div>
 
           <!-- Cambio (para transferencia/tarjeta sin teclado) -->
-          <div id="cambio-display-alt" style="display:none;" class="cambio-display"><span>✅ Pago digital recibido</span>
+          <div id="cambio-display-alt" style="display:none;" class="cambio-display"><span>âœ… Pago digital recibido</span>
           </div>
 
           <!-- Empleado -->
@@ -894,7 +895,7 @@
               style="width:100%;padding:9px 14px;border:2px solid var(--gris-borde);border-radius:var(--radio-sm);font-family:var(--font-body);font-size:14px;outline:none;"></select>
           </div>
 
-          <!-- Botón confirmar + pago pendiente -->
+          <!-- BotÃ³n confirmar + pago pendiente -->
           <!-- (moved to modal-footer) -->
 
         </div><!-- fin col-pago -->
@@ -915,7 +916,7 @@
     <div class="modal">
       <div class="modal-header">
         <h3><i class="fas fa-print"></i> Factura Generada</h3>
-        <button class="modal-close" onclick="cerrarModal('modal-ticket')" style="display: none;">✕</button>
+        <button class="modal-close" onclick="cerrarModal('modal-ticket')" style="display: none;">âœ•</button>
       </div>
       <div class="modal-body" id="modal-ticket-body"></div>
       <div class="modal-footer" id="footer-view-factura"><button class="btn-sm azul"
@@ -928,7 +929,7 @@
     <div class="modal">
       <div class="modal-header">
         <h3><i class="fas fa-lock-open"></i> Abrir Caja</h3><button class="modal-close"
-          onclick="cerrarModal('modal-abrir-caja')">✕</button>
+          onclick="cerrarModal('modal-abrir-caja')">âœ•</button>
       </div>
       <div class="modal-body">
         <div class="form-group"><label>Monto Inicial (RD$)</label><input type="number" id="caja-monto-inicial"
@@ -946,13 +947,13 @@
     <div class="modal">
       <div class="modal-header">
         <h3><i class="fas fa-lock"></i> Cerrar Caja</h3><button class="modal-close"
-          onclick="cerrarModal('modal-cerrar-caja')">✕</button>
+          onclick="cerrarModal('modal-cerrar-caja')">âœ•</button>
       </div>
       <div class="modal-body">
         <div style="background:var(--gris-bg);border-radius:var(--radio-sm);padding:16px;margin-bottom:16px;">
           <div class="totales-row"><span>Monto Inicial:</span><span id="cc-monto-inicial">RD$ 0.00</span></div>
-          <div class="totales-row"><span>Ingresos del día:</span><span id="cc-ingresos">RD$ 0.00</span></div>
-          <div class="totales-row"><span>Gastos del día:</span><span id="cc-gastos">RD$ 0.00</span></div>
+          <div class="totales-row"><span>Ingresos del dÃ­a:</span><span id="cc-ingresos">RD$ 0.00</span></div>
+          <div class="totales-row"><span>Gastos del dÃ­a:</span><span id="cc-gastos">RD$ 0.00</span></div>
           <div class="totales-row total"><span>Total Esperado:</span><span id="cc-total">RD$ 0.00</span></div>
         </div>
         <div class="form-group"><label>Monto Final en Caja (RD$)</label><input type="number" id="caja-monto-final"
@@ -973,21 +974,21 @@
     <div class="modal">
       <div class="modal-header">
         <h3><i class="fas fa-minus-circle"></i> Registrar Gasto</h3><button class="modal-close"
-          onclick="cerrarModal('modal-gasto')">✕</button>
+          onclick="cerrarModal('modal-gasto')">âœ•</button>
       </div>
       <div class="modal-body">
-        <div class="form-group"><label>Descripción</label><input type="text" id="gasto-desc"
-            placeholder="Ej: Compra de mercancía"></div>
+        <div class="form-group"><label>DescripciÃ³n</label><input type="text" id="gasto-desc"
+            placeholder="Ej: Compra de mercancÃ­a"></div>
         <div class="form-group"><label>Monto (RD$)</label><input type="number" id="gasto-monto" placeholder="0.00"
             min="0"></div>
-        <div class="form-group"><label>Categoría</label><select id="gasto-cat"
+        <div class="form-group"><label>CategorÃ­a</label><select id="gasto-cat"
             style="width:100%;padding:10px 14px;border:2px solid var(--gris-borde);border-radius:var(--radio-sm);font-family:var(--font-body);font-size:14px;outline:none;">
-            <option>Compra de mercancía</option>
+            <option>Compra de mercancÃ­a</option>
             <option>Servicios</option>
             <option>Alquiler</option>
             <option>Electricidad</option>
             <option>Agua</option>
-            <option>Teléfono/Internet</option>
+            <option>TelÃ©fono/Internet</option>
             <option>Transporte</option>
             <option>Salarios</option>
             <option>Otro</option>
@@ -1003,7 +1004,7 @@
     <div class="modal large">
       <div class="modal-header">
         <h3 id="modal-prod-titulo"><i class="fas fa-box"></i> Nuevo Producto</h3><button class="modal-close"
-          onclick="cerrarModal('modal-producto')">✕</button>
+          onclick="cerrarModal('modal-producto')">âœ•</button>
       </div>
       <div class="modal-body">
         <div class="two-col">
@@ -1012,14 +1013,14 @@
               <div class="form-group"><label>Nombre del Producto</label><input type="text" id="prod-nombre" placeholder="Ej: Arroz Superior"></div>
               <div class="form-group"><label>Peso Neto</label><input type="text" id="prod-peso-neto" placeholder="75g" style="width:100%;" title="Peso neto del producto (ej: 500g, 1kg, 5lb)"></div>
             </div>
-            <div class="form-group"><label>Código de Barras</label>
+            <div class="form-group"><label>CÃ³digo de Barras</label>
               <div style="display:flex;gap:8px;"><input type="text" id="prod-barcode"
                   placeholder="Escanear o escribir..." style="flex:1;"><button class="icon-btn scan-btn"
                   onclick="escanearBarcodeProducto()" title="Escanear"><i class="fas fa-barcode"></i></button></div>
             </div>
-            <div class="form-group"><label>Categoría</label><select id="prod-categoria"
+            <div class="form-group"><label>CategorÃ­a</label><select id="prod-categoria"
                 style="width:100%;padding:10px 14px;border:2px solid var(--gris-borde);border-radius:var(--radio-sm);font-family:var(--font-body);font-size:14px;outline:none;">
-                <option value="">Selecciona categoría...</option>
+                <option value="">Selecciona categorÃ­a...</option>
               </select></div>
             <div class="two-col" id="precio-compra-label">
               <div class="form-group"><label>Precio Venta (RD$)</label><input type="number" id="prod-precio" placeholder="0.00" min="0" step="0.01" oninput="if(document.getElementById('prod-combo-enabled')?.checked) actualizarComboPreview()"></div>
@@ -1036,7 +1037,7 @@
             <div id="stock-fields-wrap">
               <div class="two-col" id="precio-compra-label">
                 <div class="form-group"><label>Stock Actual</label><input type="number" id="prod-stock" placeholder="0" min="0" step="0.01"></div>
-                <div class="form-group"><label>Stock Mínimo</label><input type="number" id="prod-stock-min" placeholder="5" min="0" step="0.01"></div>
+                <div class="form-group"><label>Stock MÃ­nimo</label><input type="number" id="prod-stock-min" placeholder="5" min="0" step="0.01"></div>
               </div>
             </div>
             <div class="form-group">
@@ -1058,7 +1059,7 @@
             </div>
             <div class="form-group"><label>ITBIS aplica</label><select id="prod-itbis"
                 style="width:100%;padding:10px 14px;border:2px solid var(--gris-borde);border-radius:var(--radio-sm);font-family:var(--font-body);font-size:14px;outline:none;">
-                <option value="1">Sí, aplica ITBIS</option>
+                <option value="1">SÃ­, aplica ITBIS</option>
                 <option value="0">No aplica (exento)</option>
               </select></div>
           </div>
@@ -1079,14 +1080,14 @@
             </div>
           </div>
         </div>
-        <!-- Más Vendidos toggle -->
+        <!-- MÃ¡s Vendidos toggle -->
         <div id="mas-vendidos-toggle-wrap">
           <label class="mv-toggle-wrap" for="prod-mas-vendidos">
             <input type="checkbox" id="prod-mas-vendidos">
             <span class="mv-toggle-track"></span>
-            <span style="font-weight:600;font-size:13px;">⭐ Añadir a Más Vendidos</span>
+            <span style="font-weight:600;font-size:13px;">â­ AÃ±adir a MÃ¡s Vendidos</span>
           </label>
-          <p style="font-size:11px;color:var(--gris-suave);margin-top:6px;margin-left:58px;">El producto aparecerá en la categoría especial "Más Vendidos"</p>
+          <p style="font-size:11px;color:var(--gris-suave);margin-top:6px;margin-left:58px;">El producto aparecerÃ¡ en la categorÃ­a especial "MÃ¡s Vendidos"</p>
         </div>
 
         <!-- SISTEMA DE COMBO -->
@@ -1098,12 +1099,12 @@
               <span id="combo-toggle-thumb" style="position:absolute;top:3px;left:3px;width:16px;height:16px;border-radius:50%;background:#fff;box-shadow:0 1px 4px rgba(0,0,0,0.18);transition:transform 0.2s;"></span>
             </span>
             <div>
-              <span style="font-weight:700;font-size:13px;color:#1a2135;">🎁 Activar sistema de Combo</span>
+              <span style="font-weight:700;font-size:13px;color:#1a2135;">ðŸŽ Activar sistema de Combo</span>
               <p style="font-size:11px;color:var(--gris-suave);margin:2px 0 0 0;">Ej: 10 pesos/ud, pero por 15 pesos se dan 2 unidades</p>
             </div>
           </label>
           <div id="combo-fields-wrap" style="display:none;margin-top:10px;padding:14px;background:linear-gradient(135deg,#fff9db,#fff3bf);border:2px solid #f59f00;border-radius:12px;animation:fadeInDown 0.2s ease;">
-            <div style="font-size:12px;font-weight:800;color:#e67700;letter-spacing:0.5px;text-transform:uppercase;margin-bottom:10px;">⚡ Configurar Combo</div>
+            <div style="font-size:12px;font-weight:800;color:#e67700;letter-spacing:0.5px;text-transform:uppercase;margin-bottom:10px;">âš¡ Configurar Combo</div>
             <div class="two-col">
               <div class="form-group" style="margin:0;">
                 <label style="font-size:12px;font-weight:700;color:#7c5e00;">Precio del combo (RD$)</label>
@@ -1135,13 +1136,13 @@
   <div class="modal-overlay" id="modal-categoria">
     <div class="modal">
       <div class="modal-header">
-        <h3 id="modal-cat-titulo"><i class="fas fa-folder-plus"></i> Nueva Categoría</h3><button class="modal-close"
-          onclick="cerrarModal('modal-categoria')">✕</button>
+        <h3 id="modal-cat-titulo"><i class="fas fa-folder-plus"></i> Nueva CategorÃ­a</h3><button class="modal-close"
+          onclick="cerrarModal('modal-categoria')">âœ•</button>
       </div>
       <div class="modal-body">
-        <div class="form-group"><label>Nombre de la Categoría</label><input type="text" id="cat-nombre"
-            placeholder="Ej: Bebidas, Lácteos, Frutas..."></div><input type="hidden" id="cat-emoji" value="📦">
-        <div class="form-group"><label>Imagen de la Categoría</label>
+        <div class="form-group"><label>Nombre de la CategorÃ­a</label><input type="text" id="cat-nombre"
+            placeholder="Ej: Bebidas, LÃ¡cteos, Frutas..."></div><input type="hidden" id="cat-emoji" value="ðŸ“¦">
+        <div class="form-group"><label>Imagen de la CategorÃ­a</label>
           <div class="file-upload-area" id="cat-img-area" onclick="document.getElementById('cat-img-input').click()">
             <img id="cat-img-preview" src="" style="display:none;"><i id="cat-img-icon" class="fas fa-image"
               style="font-size:28px;color:var(--gris-suave);margin-bottom:6px;display:block;"></i>
@@ -1164,15 +1165,15 @@
     <div class="modal">
       <div class="modal-header">
         <h3><i class="fas fa-user-plus"></i> Agregar Empleado</h3><button class="modal-close"
-          onclick="cerrarModal('modal-empleado')">✕</button>
+          onclick="cerrarModal('modal-empleado')">âœ•</button>
       </div>
       <div class="modal-body">
         <div class="form-group"><label>Nombre Completo</label><input type="text" id="emp-nombre"
             placeholder="Nombre del empleado"></div>
-        <div class="form-group"><label>Correo Electrónico</label><input type="email" id="emp-email"
+        <div class="form-group"><label>Correo ElectrÃ³nico</label><input type="email" id="emp-email"
             placeholder="empleado@colmado.com"></div>
-        <div class="form-group"><label>Contraseña Inicial</label><input type="password" id="emp-pass"
-            placeholder="Mínimo 6 caracteres"></div>
+        <div class="form-group"><label>ContraseÃ±a Inicial</label><input type="password" id="emp-pass"
+            placeholder="MÃ­nimo 6 caracteres"></div>
         <div class="form-group"><label>Rol</label><select id="emp-rol"
             style="width:100%;padding:10px 14px;border:2px solid var(--gris-borde);border-radius:var(--radio-sm);font-family:var(--font-body);font-size:14px;outline:none;">
             <option value="empleado">Empleado</option>
@@ -1189,7 +1190,7 @@
     <div class="modal">
       <div class="modal-header">
         <h3><i class="fas fa-file-invoice"></i> Detalle de Factura</h3><button class="modal-close"
-          onclick="cerrarModal('modal-ver-factura')">✕</button>
+          onclick="cerrarModal('modal-ver-factura')">âœ•</button>
       </div>
       <div class="modal-body" id="modal-ver-factura-body"></div>
       <div class="modal-footer"><button class="btn-sm gris"
@@ -1203,34 +1204,34 @@
     <div class="modal" style="max-width:420px;">
       <div class="modal-header">
         <h3><i class="fas fa-cash-register" style="color:#00b341;"></i> Pagar Factura</h3>
-        <button class="modal-close" onclick="cerrarModal('modal-pagar-factura-pendiente')">✕</button>
+        <button class="modal-close" onclick="cerrarModal('modal-pagar-factura-pendiente')">âœ•</button>
       </div>
       <div class="modal-body">
         <div id="pfp-info"
           style="background:#f0faf3;border-radius:10px;padding:12px 16px;margin-bottom:16px;font-size:14px;">
           <!-- Info factura -->
         </div>
-        <div style="font-weight:700;font-size:14px;color:#4a5568;margin-bottom:10px;">Método de Pago:</div>
+        <div style="font-weight:700;font-size:14px;color:#4a5568;margin-bottom:10px;">MÃ©todo de Pago:</div>
         <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px;">
           <button class="pfp-mpago-btn" id="pfp-btn-efectivo" onclick="pfpSelMetodo('efectivo')"
             style="flex:1;min-width:80px;padding:12px 0;border-radius:10px;border:2px solid #e2e8f0;background:#e2e8f0;font-weight:700;font-size:13px;cursor:pointer;transition:all 0.15s;">
-            💵 Efectivo
+            ðŸ’µ Efectivo
           </button>
           <button class="pfp-mpago-btn" id="pfp-btn-transferencia" onclick="pfpSelMetodo('transferencia')"
             style="flex:1;min-width:80px;padding:12px 0;border-radius:10px;border:2px solid #e2e8f0;background:#e2e8f0;font-weight:700;font-size:13px;cursor:pointer;transition:all 0.15s;">
-            🏦 Transferencia
+            ðŸ¦ Transferencia
           </button>
           <button class="pfp-mpago-btn" id="pfp-btn-tarjeta" onclick="pfpSelMetodo('tarjeta')"
             style="flex:1;min-width:80px;padding:12px 0;border-radius:10px;border:2px solid #e2e8f0;background:#e2e8f0;font-weight:700;font-size:13px;cursor:pointer;transition:all 0.15s;">
-            💳 Tarjeta
+            ðŸ’³ Tarjeta
           </button>
           <button class="pfp-mpago-btn" id="pfp-btn-mixto" onclick="pfpSelMetodo('mixto')"
             style="flex:1;min-width:80px;padding:12px 0;border-radius:10px;border:2px solid #e2e8f0;background:#e2e8f0;font-weight:700;font-size:13px;cursor:pointer;transition:all 0.15s;">
-            💵+💳 Mixto
+            ðŸ’µ+ðŸ’³ Mixto
           </button>
         </div>
 
-        <!-- SECCIÓN EFECTIVO -->
+        <!-- SECCIÃ“N EFECTIVO -->
         <div id="pfp-efectivo-section" style="display:none;">
           <div style="font-weight:700;font-size:14px;color:#4a5568;margin-bottom:8px;">Monto Recibido:</div>
           <div
@@ -1248,17 +1249,17 @@
             <button onclick="pfpTecla('9')" class="detalle-key">9</button>
             <button onclick="pfpTecla('.')" class="detalle-key">.</button>
             <button onclick="pfpTecla('0')" class="detalle-key">0</button>
-            <button onclick="pfpTecla('⌫')" class="detalle-key del">⌫</button>
+            <button onclick="pfpTecla('âŒ«')" class="detalle-key del">âŒ«</button>
           </div>
           <div id="pfp-cambio-display"
             style="display:none;padding:10px 14px;border-radius:8px;font-weight:700;font-size:15px;margin-bottom:8px;text-align:center;">
           </div>
         </div>
 
-        <!-- SECCIÓN MIXTO (Pago Pendiente) -->
+        <!-- SECCIÃ“N MIXTO (Pago Pendiente) -->
         <div id="pfp-mixto-section" style="display:none;">
           <div class="mixto-wrapper">
-            <div class="mixto-split-label">💳 + 💵 Pago Combinado</div>
+            <div class="mixto-split-label">ðŸ’³ + ðŸ’µ Pago Combinado</div>
             <div style="margin-bottom:10px;">
               <div style="font-size:11px;font-weight:700;color:#666;margin-bottom:6px;">Segunda forma de pago:</div>
               <div class="mixto-sub-metodo-btns">
@@ -1270,8 +1271,8 @@
             </div>
             <div class="mixto-campo" id="pfp-mixto-campo-ef" onclick="pfpMixtoActivar('efectivo')">
               <div class="mixto-campo-header">
-                <span class="mixto-campo-nombre">💵 EFECTIVO</span>
-                <span class="mixto-resto-badge verde" onclick="event.stopPropagation();pfpMixtoResto('efectivo')">↑
+                <span class="mixto-campo-nombre">ðŸ’µ EFECTIVO</span>
+                <span class="mixto-resto-badge verde" onclick="event.stopPropagation();pfpMixtoResto('efectivo')">â†‘
                   Resto</span>
               </div>
               <div class="mixto-campo-val" id="pfp-mixto-disp-ef"><span class="placeholder">Toca para ingresar</span>
@@ -1279,8 +1280,8 @@
             </div>
             <div class="mixto-campo" id="pfp-mixto-campo-elec" onclick="pfpMixtoActivar('elec')">
               <div class="mixto-campo-header">
-                <span class="mixto-campo-nombre" id="pfp-mixto-elec-lbl">🏦 TRANSFERENCIA</span>
-                <span class="mixto-resto-badge verde" onclick="event.stopPropagation();pfpMixtoResto('elec')">↑
+                <span class="mixto-campo-nombre" id="pfp-mixto-elec-lbl">ðŸ¦ TRANSFERENCIA</span>
+                <span class="mixto-resto-badge verde" onclick="event.stopPropagation();pfpMixtoResto('elec')">â†‘
                   Resto</span>
               </div>
               <div class="mixto-campo-val" id="pfp-mixto-disp-el"><span class="placeholder">Toca para ingresar</span>
@@ -1298,13 +1299,13 @@
               <button class="mixto-key" onclick="pfpMixtoTecla('9')">9</button>
               <button class="mixto-key" onclick="pfpMixtoTecla('.')">.</button>
               <button class="mixto-key" onclick="pfpMixtoTecla('0')">0</button>
-              <button class="mixto-key del" onclick="pfpMixtoTecla('⌫')">⌫</button>
-              <button class="mixto-key ok" onclick="pfpMixtoTecla('OK')">✓ Ver resumen</button>
+              <button class="mixto-key del" onclick="pfpMixtoTecla('âŒ«')">âŒ«</button>
+              <button class="mixto-key ok" onclick="pfpMixtoTecla('OK')">âœ“ Ver resumen</button>
             </div>
             <div class="mixto-resumen" id="pfp-mixto-resumen">
-              <div class="mixto-resumen-row"><span class="lbl">💵 Efectivo</span><span class="val"
+              <div class="mixto-resumen-row"><span class="lbl">ðŸ’µ Efectivo</span><span class="val"
                   id="pfp-mx-res-ef">RD$ 0.00</span></div>
-              <div class="mixto-resumen-row"><span class="lbl" id="pfp-mx-res-el-lbl">🏦 Transferencia</span><span
+              <div class="mixto-resumen-row"><span class="lbl" id="pfp-mx-res-el-lbl">ðŸ¦ Transferencia</span><span
                   class="val" id="pfp-mx-res-el">RD$ 0.00</span></div>
               <div class="mixto-resumen-row" style="border-top:1px dashed #dee2e6;margin-top:6px;padding-top:6px;"><span
                   class="lbl">Total pagado</span><span class="val" id="pfp-mx-res-tot">RD$ 0.00</span></div>
@@ -1325,12 +1326,12 @@
   <div class="modal-overlay" id="modal-scanner">
     <div class="modal">
       <div class="modal-header">
-        <h3><i class="fas fa-barcode"></i> Escanear Código de Barras</h3><button class="modal-close"
-          onclick="cerrarModal('modal-scanner')">✕</button>
+        <h3><i class="fas fa-barcode"></i> Escanear CÃ³digo de Barras</h3><button class="modal-close"
+          onclick="cerrarModal('modal-scanner')">âœ•</button>
       </div>
       <div class="modal-body" style="text-align:center;">
-        <p style="color:var(--gris-suave);font-size:14px;margin-bottom:16px;">Ingresa manualmente el código de barras:
-        </p><input type="text" id="scanner-input" placeholder="Código de barras..."
+        <p style="color:var(--gris-suave);font-size:14px;margin-bottom:16px;">Ingresa manualmente el cÃ³digo de barras:
+        </p><input type="text" id="scanner-input" placeholder="CÃ³digo de barras..."
           style="width:100%;padding:14px;border:2px solid var(--gris-borde);border-radius:var(--radio-sm);font-size:18px;font-family:var(--font-mono);outline:none;text-align:center;font-weight:700;"
           onkeydown="if(event.key==='Enter')buscarPorBarcode()"><button class="btn-primary" onclick="buscarPorBarcode()"
           style="margin-top:12px;">Buscar</button>
@@ -1342,11 +1343,11 @@
     <div class="modal" style="max-width:360px;">
       <div class="modal-header">
         <h3><i class="fas fa-trash" style="color:var(--rojo);"></i> Vaciar Carrito</h3><button class="modal-close"
-          onclick="cerrarModal('modal-vaciar-carrito')">✕</button>
+          onclick="cerrarModal('modal-vaciar-carrito')">âœ•</button>
       </div>
       <div class="modal-body" style="text-align:center;padding:24px 20px;">
-        <p style="font-size:15px;color:#444;">¿Deseas vaciar el carrito?<br><span
-            style="color:#888;font-size:13px;">Esta acción eliminará todos los productos agregados.</span></p>
+        <p style="font-size:15px;color:#444;">Â¿Deseas vaciar el carrito?<br><span
+            style="color:#888;font-size:13px;">Esta acciÃ³n eliminarÃ¡ todos los productos agregados.</span></p>
       </div>
       <div class="modal-footer"><button class="btn-sm gris"
           onclick="cerrarModal('modal-vaciar-carrito')">Cancelar</button><button class="btn-sm rojo"
@@ -1358,10 +1359,10 @@
     <div class="modal" style="max-width:360px;">
       <div class="modal-header">
         <h3><i class="fas fa-times-circle" style="color:var(--rojo);"></i>Eliminar Pedido</h3><button
-          class="modal-close" onclick="cerrarModal('modal-cerrar-tab')">✕</button>
+          class="modal-close" onclick="cerrarModal('modal-cerrar-tab')">âœ•</button>
       </div>
       <div class="modal-body" style="text-align:center;padding:24px 20px;">
-        <p style="font-size:15px;color:#444;" id="modal-cerrar-tab-msg">¿Eliminar Este Pedido?</p>
+        <p style="font-size:15px;color:#444;" id="modal-cerrar-tab-msg">Â¿Eliminar Este Pedido?</p>
       </div>
       <div class="modal-footer">
         <button class="btn-sm gris" onclick="cerrarModal('modal-cerrar-tab')">Cancelar</button>
@@ -1371,15 +1372,15 @@
     </div>
   </div>
 
-  <script type="module" src="./src/core/app/main.js"></script>
+  <script type="module" src="./js/app.js"></script>
 
-  <!-- ===== CÁMARA ESCÁNER MODAL ===== -->
+  <!-- ===== CÃMARA ESCÃNER MODAL ===== -->
   <div id="modal-camara-scanner">
     <div class="cam-scanner-wrap">
       <div class="cam-scanner-header">
         <div class="cam-scanner-title">
           <i class="fas fa-barcode"></i>
-          Escanear Código de Barras
+          Escanear CÃ³digo de Barras
         </div>
         <button class="cam-close-btn" onclick="cerrarCamaraScanner()" title="Cerrar">
           <i class="fas fa-times"></i>
@@ -1404,22 +1405,22 @@
       <div class="cam-status">
         <div class="cam-status-dot"></div>
         <div class="cam-status-text" id="cam-status-text">
-          <strong>Apunta la cámara al código de barras</strong>
+          <strong>Apunta la cÃ¡mara al cÃ³digo de barras</strong>
         </div>
       </div>
 
       <div class="cam-result-banner" id="cam-result-banner">
         <i class="fas fa-check-circle"></i>
-        <span id="cam-result-text">Código capturado</span>
+        <span id="cam-result-text">CÃ³digo capturado</span>
       </div>
       <div class="cam-error-banner" id="cam-error-banner">
         <i class="fas fa-exclamation-circle"></i>
-        <span id="cam-error-text">No se pudo acceder a la cámara</span>
+        <span id="cam-error-text">No se pudo acceder a la cÃ¡mara</span>
       </div>
 
       <div class="cam-manual-row">
         <input type="text" class="cam-manual-input" id="cam-manual-input"
-          placeholder="O escribe el código aquí..."
+          placeholder="O escribe el cÃ³digo aquÃ­..."
           onkeydown="if(event.key==='Enter') confirmarCodigoCamara()">
         <button class="cam-confirm-btn" onclick="confirmarCodigoCamara()">
           <i class="fas fa-check"></i> OK
@@ -1429,372 +1430,26 @@
   </div>
 
   <!-- ===== TECLADO TOUCH VIRTUAL (modular) ===== -->
-  <script src="./src/components/ui-base/virtual-keyboard.js"></script>
+  <script src="./js/virtualKeyboard.js"></script>
   <!-- ===== FIN TECLADO TOUCH VIRTUAL ===== -->
 
-  <script>
-  // ══════════════════════════════════════════════
-  //  CÁMARA ESCÁNER — lógica
-  // ══════════════════════════════════════════════
-  (function() {
-    let _camStream   = null;
-    let _barDetector = null;
-    let _scanLoop    = null;
-    let _scanning    = false;
-    let _destino     = null; // 'prod-barcode' | callback fn
+  <script src="./js/modulos/posCartBilling.js"></script>
+  <script src="./js/modulos/scannerCamera.js"></script>
+  <script src="./js/modulos/posMobileToggle.js"></script>
 
-    // Abrir cámara y dirigir resultado a un input
-    window.abrirCamaraScanner = function(destinoInputId) {
-      _destino = destinoInputId || 'prod-barcode';
-      document.getElementById('modal-camara-scanner').classList.add('visible');
-      document.getElementById('cam-result-banner').classList.remove('visible');
-      document.getElementById('cam-error-banner').classList.remove('visible');
-      document.getElementById('cam-manual-input').value = '';
-      _setStatus('Iniciando cámara...');
-      _iniciarCamara();
-      if (window._modalStack) {
-        window._modalStack.push('modal-camara-scanner');
-        history.pushState({ modalOpen: 'modal-camara-scanner', stackLen: window._modalStack.length }, '', window.location.href);
-      }
-    };
-
-    window.cerrarCamaraScanner = function() {
-      _detenerCamara();
-      document.getElementById('modal-camara-scanner').classList.remove('visible');
-      if (window._modalStack) {
-        const idx = window._modalStack.lastIndexOf('modal-camara-scanner');
-        if (idx !== -1) window._modalStack.splice(idx, 1);
-      }
-    };
-
-    window.confirmarCodigoCamara = function() {
-      const val = document.getElementById('cam-manual-input').value.trim();
-      if (!val) return;
-      _entregarCodigo(val);
-    };
-
-    function _setStatus(msg) {
-      const el = document.getElementById('cam-status-text');
-      if (el) el.innerHTML = msg;
-    }
-
-    function _mostrarResultado(code) {
-      const banner = document.getElementById('cam-result-banner');
-      const txt    = document.getElementById('cam-result-text');
-      if (txt) txt.textContent = '✅ Código: ' + code;
-      if (banner) banner.classList.add('visible');
-    }
-
-    function _mostrarError(msg) {
-      const banner = document.getElementById('cam-error-banner');
-      const txt    = document.getElementById('cam-error-text');
-      if (txt) txt.textContent = msg;
-      if (banner) banner.classList.add('visible');
-      _setStatus('Ingresa el código manualmente ↓');
-    }
-
-    async function _iniciarCamara() {
-      try {
-        _camStream = await navigator.mediaDevices.getUserMedia({
-          video: { facingMode: 'environment', width: { ideal: 1280 }, height: { ideal: 720 } }
-        });
-        const vid = document.getElementById('cam-video');
-        vid.srcObject = _camStream;
-        await vid.play();
-        _setStatus('<strong>Apunta al código de barras</strong>');
-
-        // Usar BarcodeDetector si está disponible (Chrome Android / algunos iOS)
-        if ('BarcodeDetector' in window) {
-          _barDetector = new BarcodeDetector({ formats: [
-            'code_128','code_39','ean_13','ean_8','upc_a','upc_e',
-            'qr_code','data_matrix','codabar','itf'
-          ]});
-          _scanning = true;
-          _loopDetect();
-        } else {
-          // Fallback: solo entrada manual
-          _setStatus('Tu navegador no soporta escaneo automático.<br><strong>Usa el campo manual ↓</strong>');
-        }
-      } catch(err) {
-        _mostrarError('No se pudo acceder a la cámara. Revisa los permisos.');
-        console.warn('Cam error:', err);
-      }
-    }
-
-    function _loopDetect() {
-      if (!_scanning) return;
-      const vid = document.getElementById('cam-video');
-      if (!vid || vid.readyState < 2) { _scanLoop = requestAnimationFrame(_loopDetect); return; }
-      _barDetector.detect(vid).then(codes => {
-        if (codes.length > 0) {
-          const code = codes[0].rawValue;
-          _scanning = false;
-          cancelAnimationFrame(_scanLoop);
-          _entregarCodigo(code);
-        } else {
-          _scanLoop = requestAnimationFrame(_loopDetect);
-        }
-      }).catch(() => {
-        _scanLoop = requestAnimationFrame(_loopDetect);
-      });
-    }
-
-    function _entregarCodigo(code) {
-      _mostrarResultado(code);
-
-      // Si viene del scanner de POS móvil, buscar por código de barras y agregar al carrito
-      if (window._scannerDestinoPos) {
-        window._scannerDestinoPos = false;
-        setTimeout(() => {
-          cerrarCamaraScanner();
-          if (window.productos) {
-            const prod = window.productos.find(p => p.codigoBarras === code);
-            if (prod) {
-              if (window.agregarAlCarrito) window.agregarAlCarrito(prod.id);
-              if (window.toast) toast('✅ ' + prod.nombre + ' agregado al carrito', 'success', 2500);
-            } else {
-              const inp = document.getElementById('pos-buscar');
-              if (inp) {
-                inp.value = code;
-                inp.dispatchEvent(new Event('input', { bubbles: true }));
-                if (window.buscarProductos) window.buscarProductos(code);
-              }
-              if (window.toast) toast('🔍 Buscando: ' + code, 'info', 2000);
-            }
-          }
-        }, 600);
-        return;
-      }
-
-      // Poner en el input destino (comportamiento normal)
-      const inp = document.getElementById(_destino);
-      if (inp) {
-        inp.value = code;
-        inp.dispatchEvent(new Event('input', { bubbles: true }));
-      }
-      // Activar modo "scanBtnActive" del escáner global si aplica
-      if (window._bcScanner) window._bcScanner.scanBtnActive = false;
-      // Toast y cerrar después de un momento
-      setTimeout(() => {
-        if (window.toast) toast('✅ Código capturado: ' + code, 'success', 2500);
-        cerrarCamaraScanner();
-      }, 700);
-    }
-
-    function _detenerCamara() {
-      _scanning = false;
-      if (_scanLoop) { cancelAnimationFrame(_scanLoop); _scanLoop = null; }
-      if (_camStream) {
-        _camStream.getTracks().forEach(t => t.stop());
-        _camStream = null;
-      }
-      const vid = document.getElementById('cam-video');
-      if (vid) { vid.srcObject = null; }
-    }
-
-    // Cerrar al hacer clic en el fondo oscuro
-    document.getElementById('modal-camara-scanner').addEventListener('click', function(e) {
-      if (e.target === this) cerrarCamaraScanner();
-    });
-  })();
-  </script>
-
-  <script>
-  // ═══════════════════════════════════════════════
-  //  MOBILE POS TOGGLE — productos ↔ carrito
-  //  FAB solo visible en sección Facturación (POS)
-  // ═══════════════════════════════════════════════
-  (function () {
-    let _mobVistaCarrito = false;
-
-    function _esMobile() { return window.innerWidth <= 768; }
-
-    // Mostrar/ocultar FAB según la página activa
-    window._actualizarVisibilidadFab = function () {
-      const fab    = document.getElementById('mob-carrito-fab');
-      const enPos  = document.body.classList.contains('en-pos');
-      if (!fab) return;
-      fab.style.display = (_esMobile() && enPos) ? 'flex' : 'none';
-    };
-
-    window.mobToggleCarrito = function (forzar) {
-      if (typeof forzar === 'boolean') _mobVistaCarrito = forzar;
-      else _mobVistaCarrito = !_mobVistaCarrito;
-      _aplicarVista();
-    };
-
-    function _aplicarVista() {
-      if (!_esMobile()) return;
-      const posRight  = document.getElementById('pos-right');
-      const posCenter = document.querySelector('.pos-center');
-      const fab       = document.getElementById('mob-carrito-fab');
-      const fabLabel  = document.getElementById('fab-label');
-      const fabIcon   = document.getElementById('fab-icon-i');
-      if (!posRight || !posCenter || !fab) return;
-
-      if (_mobVistaCarrito) {
-        posRight.classList.add('mob-visible');
-        posCenter.classList.add('mob-hidden');
-        fab.classList.add('modo-carrito');
-        fabLabel.textContent = 'Ver Productos';
-        fabIcon.className = 'fas fa-store';
-      } else {
-        posRight.classList.remove('mob-visible');
-        posCenter.classList.remove('mob-hidden');
-        fab.classList.remove('modo-carrito');
-        fabLabel.textContent = 'Ver Carrito';
-        fabIcon.className = 'fas fa-shopping-cart';
-      }
-    }
-
-    window._actualizarFabBadge = function (n) {
-      const badge = document.getElementById('fab-badge');
-      if (!badge) return;
-      badge.textContent = n;
-      badge.classList.toggle('visible', n > 0);
-    };
-
-    window.addEventListener('resize', () => {
-      if (!_esMobile()) {
-        const posRight  = document.getElementById('pos-right');
-        const posCenter = document.querySelector('.pos-center');
-        if (posRight)  posRight.classList.remove('mob-visible');
-        if (posCenter) posCenter.classList.remove('mob-hidden');
-        _mobVistaCarrito = false;
-      }
-      window._actualizarVisibilidadFab();
-    });
-  })();
-  </script>
-
-
-  <style>
-    /* ── Menú contextual POS ── */
-    @keyframes ctxFadeIn {
-      from { opacity:0; transform:scale(0.93) translateY(-4px); }
-      to   { opacity:1; transform:scale(1) translateY(0); }
-    }
-    /* ── Offline / Sync badge animation ── */
-    @keyframes syncPulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.6; }
-    }
-    #offline-badge[style*="e67700"] {
-      animation: syncPulse 1.5s ease-in-out infinite;
-    }
-    /* Offline warning toast */
-    .toast.warning {
-      background: #e67700 !important;
-      border-left-color: #f59f00 !important;
-    }
-
-    /* ── Botones azul / naranja inventario ── */
-    .btn-sm.azul {
-      background: #1971c2; color: #fff; border: none;
-      padding: 7px 14px; border-radius: 8px; font-size: 13px;
-      font-weight: 700; cursor: pointer; display: inline-flex;
-      align-items: center; gap: 6px; transition: background 0.18s;
-    }
-    .btn-sm.azul:hover { background: #1864ab; }
-    .btn-sm.naranja {
-      background: #e67700; color: #fff; border: none;
-      padding: 7px 14px; border-radius: 8px; font-size: 13px;
-      font-weight: 700; cursor: pointer; display: inline-flex;
-      align-items: center; gap: 6px; transition: background 0.18s;
-    }
-    .btn-sm.naranja:hover { background: #d06200; }
-
-    /* ── Modal de progreso exportar/importar ── */
-    #modal-inv-progreso {
-      display: none; position: fixed; inset: 0;
-      background: rgba(0,0,0,0.55); z-index: 9999;
-      align-items: center; justify-content: center;
-    }
-    #modal-inv-progreso.activo { display: flex; }
-    .inv-progreso-card {
-      background: #fff; border-radius: 18px;
-      padding: 32px 36px; max-width: 420px; width: 90%;
-      box-shadow: 0 12px 40px rgba(0,0,0,0.22);
-      text-align: center;
-    }
-    .inv-progreso-card h3 {
-      font-size: 1.2rem; font-weight: 800; margin: 0 0 8px;
-      color: #1a2135;
-    }
-    .inv-progreso-card p {
-      font-size: 13px; color: #555; margin: 0 0 20px;
-    }
-    .inv-progreso-bar-wrap {
-      background: #f0f0f0; border-radius: 20px;
-      height: 12px; overflow: hidden; margin-bottom: 10px;
-    }
-    .inv-progreso-bar-fill {
-      height: 100%; background: linear-gradient(90deg,#1971c2,#74c0fc);
-      border-radius: 20px; transition: width 0.25s ease;
-      width: 0%;
-    }
-    .inv-progreso-pct {
-      font-size: 13px; font-weight: 700; color: #1971c2; margin-bottom: 18px;
-    }
-    .inv-progreso-ok {
-      display: none; flex-direction: column; align-items: center; gap: 10px;
-    }
-    .inv-progreso-ok .ok-icon { font-size: 2.8rem; }
-    .inv-progreso-ok p { margin: 0; font-size: 14px; font-weight: 700; color: #15803d; }
-    .inv-progreso-ok.visible { display: flex; }
-
-    /* ── Modal confirmación importar ── */
-    #modal-inv-confirmar-import {
-      display: none; position: fixed; inset: 0;
-      background: rgba(0,0,0,0.55); z-index: 10000;
-      align-items: center; justify-content: center;
-    }
-    #modal-inv-confirmar-import.activo { display: flex; }
-    .inv-confirm-card {
-      background: #fff; border-radius: 18px;
-      padding: 28px 32px; max-width: 400px; width: 90%;
-      box-shadow: 0 12px 40px rgba(0,0,0,0.22);
-    }
-    .inv-confirm-card h3 {
-      font-size: 1.1rem; font-weight: 800; color: #1a2135; margin: 0 0 10px;
-    }
-    .inv-confirm-card p {
-      font-size: 13px; color: #555; margin: 0 0 20px; line-height: 1.6;
-    }
-    .inv-confirm-btns {
-      display: flex; gap: 10px; justify-content: flex-end;
-    }
-    .inv-confirm-btns button {
-      padding: 9px 20px; border-radius: 9px; border: none;
-      font-size: 13px; font-weight: 700; cursor: pointer;
-    }
-    .inv-confirm-btns .btn-cancelar {
-      background: #f1f3f5; color: #495057;
-    }
-    .inv-confirm-btns .btn-confirmar {
-      background: #e67700; color: #fff;
-    }
-    .inv-confirm-btns .btn-confirmar:hover { background: #d06200; }
-    .inv-confirm-resumen {
-      background: #f8f9fa; border-radius: 10px;
-      padding: 12px 16px; margin-bottom: 18px;
-      font-size: 13px; color: #333; line-height: 1.8;
-    }
-    .inv-confirm-resumen strong { color: #1971c2; }
-  </style>
 
   <!-- MODAL PROGRESO EXPORTAR/IMPORTAR -->
   <div id="modal-inv-progreso">
     <div class="inv-progreso-card">
       <h3 id="inv-prog-titulo">Exportando Inventario</h3>
-      <p id="inv-prog-subtitulo">Preparando productos e imágenes...</p>
+      <p id="inv-prog-subtitulo">Preparando productos e imÃ¡genes...</p>
       <div class="inv-progreso-bar-wrap">
         <div class="inv-progreso-bar-fill" id="inv-prog-barra"></div>
       </div>
       <div class="inv-progreso-pct" id="inv-prog-pct">0%</div>
       <div class="inv-progreso-ok" id="inv-prog-ok">
-        <div class="ok-icon">✅</div>
-        <p id="inv-prog-ok-txt">¡Listo!</p>
+        <div class="ok-icon">âœ…</div>
+        <p id="inv-prog-ok-txt">Â¡Listo!</p>
         <button class="btn-sm verde" onclick="document.getElementById('modal-inv-progreso').classList.remove('activo')" style="margin-top:6px;">Cerrar</button>
       </div>
     </div>
@@ -1803,308 +1458,19 @@
   <!-- MODAL CONFIRMAR IMPORTAR -->
   <div id="modal-inv-confirmar-import">
     <div class="inv-confirm-card">
-      <h3>📥 Importar Inventario</h3>
-      <p>Se encontró el siguiente inventario en el archivo:</p>
+      <h3>ðŸ“¥ Importar Inventario</h3>
+      <p>Se encontrÃ³ el siguiente inventario en el archivo:</p>
       <div class="inv-confirm-resumen" id="inv-confirm-resumen"></div>
-      <p style="font-size:12px;color:#e03131;font-weight:700;">⚠️ Esta acción reemplazará TODO el inventario actual (productos y categorías). No se puede deshacer.</p>
+      <p style="font-size:12px;color:#e03131;font-weight:700;">âš ï¸ Esta acciÃ³n reemplazarÃ¡ TODO el inventario actual (productos y categorÃ­as). No se puede deshacer.</p>
       <div class="inv-confirm-btns">
         <button class="btn-cancelar" onclick="cancelarImport()">Cancelar</button>
-        <button class="btn-confirmar" onclick="confirmarImport()"><i class="fas fa-file-import"></i> Sí, Importar</button>
+        <button class="btn-confirmar" onclick="confirmarImport()"><i class="fas fa-file-import"></i> SÃ­, Importar</button>
       </div>
     </div>
   </div>
 
-  <script>
-  // ═══════════════════════════════════════════════════════
-  //  EXPORTAR / IMPORTAR INVENTARIO COMPLETO (con imágenes)
-  // ═══════════════════════════════════════════════════════
-  (function () {
+  <script src="./js/modulos/inventarioImportExport.js"></script>
 
-    let _importPendingData = null;
-
-    // ── Utilidades de UI ──────────────────────────────────
-    function _showProgreso(titulo, subtitulo) {
-      document.getElementById('inv-prog-titulo').textContent = titulo;
-      document.getElementById('inv-prog-subtitulo').textContent = subtitulo;
-      document.getElementById('inv-prog-barra').style.width = '0%';
-      document.getElementById('inv-prog-pct').textContent = '0%';
-      document.getElementById('inv-prog-ok').classList.remove('visible');
-      document.getElementById('modal-inv-progreso').classList.add('activo');
-    }
-
-    function _setProgreso(pct) {
-      document.getElementById('inv-prog-barra').style.width = pct + '%';
-      document.getElementById('inv-prog-pct').textContent = Math.round(pct) + '%';
-    }
-
-    function _finProgreso(mensaje) {
-      _setProgreso(100);
-      document.getElementById('inv-prog-ok-txt').textContent = mensaje;
-      document.getElementById('inv-prog-ok').classList.add('visible');
-      document.getElementById('inv-prog-subtitulo').textContent = '';
-    }
-
-    // ── EXPORTAR ─────────────────────────────────────────
-    window.exportarInventarioCompleto = async function () {
-      const cats = window.categorias || [];
-      const prods = window.productos || [];
-
-      if (cats.length === 0 && prods.length === 0) {
-        if (window.toast) toast('⚠️ No hay productos en el inventario para exportar.', 'warning', 3000);
-        return;
-      }
-
-      _showProgreso('📦 Exportando Inventario', 'Preparando datos...');
-
-      const total = cats.length + prods.length;
-      let procesados = 0;
-
-      // Clonar categorías (con imagen si la tienen)
-      const catsExport = [];
-      for (const cat of cats) {
-        const c = { ...cat };
-        // Si la imagen ya es base64 la incluimos tal cual
-        // Si es una URL externa, la intentamos convertir a base64
-        if (c.imagen && !c.imagen.startsWith('data:')) {
-          try {
-            c.imagen = await _urlToBase64(c.imagen);
-          } catch (e) { /* mantener URL si falla */ }
-        }
-        catsExport.push(c);
-        procesados++;
-        _setProgreso((procesados / total) * 100);
-      }
-
-      // Clonar productos (con imagen en base64)
-      const prodsExport = [];
-      for (const p of prods) {
-        const prod = { ...p };
-        if (prod.imagen && !prod.imagen.startsWith('data:')) {
-          try {
-            prod.imagen = await _urlToBase64(prod.imagen);
-          } catch (e) { /* mantener URL si falla */ }
-        }
-        prodsExport.push(prod);
-        procesados++;
-        _setProgreso((procesados / total) * 100);
-      }
-
-      const payload = {
-        _version: 1,
-        _exportDate: new Date().toISOString(),
-        _appName: 'miColmApp',
-        categorias: catsExport,
-        productos: prodsExport
-      };
-
-      // Descargar como .json
-      const json = JSON.stringify(payload, null, 2);
-      const blob = new Blob([json], { type: 'application/json' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      const fecha = new Date().toLocaleDateString('es-DO').replace(/\//g, '-');
-      const negNombre = (document.getElementById('nav-negocio-nombre')?.textContent || 'inventario').replace(/\s+/g, '_');
-      a.href = url;
-      a.download = `inventario_${negNombre}_${fecha}.json`;
-      a.click();
-      URL.revokeObjectURL(url);
-
-      _finProgreso(`✅ ${prodsExport.length} productos en ${catsExport.length} categorías exportados`);
-    };
-
-    // ── Convertir URL a base64 ────────────────────────────
-    async function _urlToBase64(url) {
-      const res = await fetch(url);
-      const blob = await res.blob();
-      return new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.onloadend = () => resolve(reader.result);
-        reader.onerror = reject;
-        reader.readAsDataURL(blob);
-      });
-    }
-
-    // ── IMPORTAR ─────────────────────────────────────────
-    window.importarInventarioCompleto = function (input) {
-      const file = input.files[0];
-      if (!file) return;
-      input.value = ''; // resetear para poder volver a importar el mismo archivo
-
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        let data;
-        try {
-          data = JSON.parse(e.target.result);
-        } catch (err) {
-          if (window.toast) toast('❌ El archivo no es válido. Debe ser un archivo .json de miColmApp.', 'error', 4000);
-          return;
-        }
-
-        // Validación básica
-        if (!data._appName || data._appName !== 'miColmApp' || !Array.isArray(data.categorias) || !Array.isArray(data.productos)) {
-          if (window.toast) toast('❌ Archivo inválido. Solo se aceptan exportaciones de miColmApp.', 'error', 4000);
-          return;
-        }
-
-        // Mostrar confirmación
-        _importPendingData = data;
-        const fechaExport = data._exportDate ? new Date(data._exportDate).toLocaleDateString('es-DO', { day:'2-digit', month:'long', year:'numeric', hour:'2-digit', minute:'2-digit' }) : 'Desconocida';
-        document.getElementById('inv-confirm-resumen').innerHTML =
-          `📁 <strong>${data.categorias.length}</strong> categorías<br>` +
-          `📦 <strong>${data.productos.length}</strong> productos<br>` +
-          `🗓️ Exportado el: <strong>${fechaExport}</strong>`;
-        document.getElementById('modal-inv-confirmar-import').classList.add('activo');
-      };
-      reader.readAsText(file);
-    };
-
-    window.cancelarImport = function () {
-      _importPendingData = null;
-      document.getElementById('modal-inv-confirmar-import').classList.remove('activo');
-    };
-
-    window.confirmarImport = async function () {
-      document.getElementById('modal-inv-confirmar-import').classList.remove('activo');
-      const data = _importPendingData;
-      _importPendingData = null;
-      if (!data) return;
-
-      _showProgreso('📥 Importando Inventario', 'Borrando inventario actual...');
-
-      try {
-        // Acceder a Firestore mediante las variables globales del app
-        const { db, negocioId } = _getFirebaseCtx();
-        const { collection, doc, getDocs, deleteDoc, setDoc, writeBatch } = await _getFirestoreFns();
-
-        const total = data.categorias.length + data.productos.length;
-        let procesados = 0;
-
-        // 1. Borrar categorías y productos actuales en Firestore
-        const catsRef = collection(db, 'negocios', negocioId, 'categorias');
-        const catsSnap = await getDocs(catsRef);
-        for (const catDoc of catsSnap.docs) {
-          const prodsSnap = await getDocs(collection(db, 'negocios', negocioId, 'categorias', catDoc.id, 'productos'));
-          for (const pDoc of prodsSnap.docs) await deleteDoc(pDoc.ref);
-          await deleteDoc(catDoc.ref);
-        }
-
-        // 2. Importar nuevas categorías
-        for (const cat of data.categorias) {
-          const { imagen, ...catData } = cat;
-          // Guardar sin imagen primero (imagen puede ser pesada)
-          const catRef = doc(db, 'negocios', negocioId, 'categorias', cat.id);
-          await setDoc(catRef, { ...catData, imagen: imagen || '' });
-          procesados++;
-          _setProgreso((procesados / total) * 100);
-        }
-
-        // 3. Importar productos
-        for (const prod of data.productos) {
-          const catId = prod.categoriaId;
-          if (!catId) continue;
-          const prodRef = doc(db, 'negocios', negocioId, 'categorias', catId, 'productos', prod.id);
-          await setDoc(prodRef, { ...prod });
-          procesados++;
-          _setProgreso((procesados / total) * 100);
-        }
-
-        // 4. Actualizar estado local
-        if (window.categorias !== undefined) window.categorias = data.categorias;
-        if (window.productos !== undefined) window.productos = data.productos;
-        if (window.renderInventario) window.renderInventario();
-        if (window.populateCatSelects) window.populateCatSelects();
-
-        _finProgreso(`✅ Inventario importado: ${data.productos.length} productos en ${data.categorias.length} categorías`);
-      } catch (err) {
-        console.error('Error importando inventario:', err);
-        document.getElementById('modal-inv-progreso').classList.remove('activo');
-        if (window.toast) toast('❌ Error al importar: ' + (err.message || err), 'error', 5000);
-      }
-    };
-
-    // ── Acceder al contexto Firebase del app ─────────────
-    function _getFirebaseCtx() {
-      const _db = window._db;
-      const _negId = window._negocioId;
-      if (!_db || !_negId) throw new Error('No se pudo acceder al contexto de Firebase. Asegúrate de haber iniciado sesión y tener un negocio activo.');
-      return { db: _db, negocioId: _negId };
-    }
-
-    async function _getFirestoreFns() {
-      // Usar la misma versión que la app principal
-      return await import('https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js');
-    }
-
-  })();
-  </script>
-
-  <style>
-    /* ── Offline / Sync badge animation ── */
-    @keyframes syncPulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.6; }
-    }
-    @keyframes fadeInDown {
-      from { opacity: 0; transform: translateY(-8px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-    #offline-badge[style*="e67700"] {
-      animation: syncPulse 1.5s ease-in-out infinite;
-    }
-    /* Offline warning toast */
-    .toast.warning {
-      background: #e67700 !important;
-      border-left-color: #f59f00 !important;
-    }
-    /* Remove spinner arrows from monto-recibido input */
-    #monto-recibido::-webkit-outer-spin-button,
-    #monto-recibido::-webkit-inner-spin-button {
-      -webkit-appearance: none;
-      margin: 0;
-    }
-    #monto-recibido[type=number] {
-      -moz-appearance: textfield;
-      appearance: textfield;
-      text-align: right;
-    }
-
-    /* ── Carrito edit overlay ── */
-    .carrito-edit-overlay {
-      position: absolute;
-      inset: 0;
-      background: rgba(200, 210, 230, 0.55);
-      backdrop-filter: blur(1px);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      border-radius: inherit;
-      z-index: 10;
-      transition: background 0.15s;
-    }
-    .carrito-edit-overlay:hover {
-      background: rgba(180, 195, 220, 0.72);
-    }
-    .carrito-edit-overlay i {
-      font-size: 20px;
-      color: #1a2135;
-      opacity: 0.75;
-      pointer-events: none;
-      transition: transform 0.15s;
-    }
-    .carrito-edit-overlay:hover i {
-      transform: scale(1.2);
-      opacity: 1;
-    }
-    /* Ensure carrito items have relative positioning for overlay */
-    .carrito-item {
-      position: relative;
-    }
-    /* Edit button hover in header */
-    #btn-editar-carrito:hover {
-      background: rgba(255,255,255,0.15) !important;
-    }
-  </style>
 </body>
 
 </html>

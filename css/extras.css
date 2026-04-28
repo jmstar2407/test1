@@ -1,0 +1,226 @@
+/* Extraído de estilos inline en miColmApp.html */
+
+/* ── Menú contextual POS ── */
+@keyframes ctxFadeIn {
+  from { opacity: 0; transform: scale(0.93) translateY(-4px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+/* ── Offline / Sync badge animation ── */
+@keyframes syncPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+#offline-badge[style*="e67700"] {
+  animation: syncPulse 1.5s ease-in-out infinite;
+}
+
+.toast.warning {
+  background: #e67700 !important;
+  border-left-color: #f59f00 !important;
+}
+
+/* ── Botones azul / naranja inventario ── */
+.btn-sm.azul {
+  background: #1971c2;
+  color: #fff;
+  border: none;
+  padding: 7px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: background 0.18s;
+}
+.btn-sm.azul:hover { background: #1864ab; }
+.btn-sm.naranja {
+  background: #e67700;
+  color: #fff;
+  border: none;
+  padding: 7px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: background 0.18s;
+}
+.btn-sm.naranja:hover { background: #d06200; }
+
+/* ── Modal de progreso exportar/importar ── */
+#modal-inv-progreso {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+  z-index: 9999;
+  align-items: center;
+  justify-content: center;
+}
+#modal-inv-progreso.activo { display: flex; }
+.inv-progreso-card {
+  background: #fff;
+  border-radius: 18px;
+  padding: 32px 36px;
+  max-width: 420px;
+  width: 90%;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.22);
+  text-align: center;
+}
+.inv-progreso-card h3 {
+  font-size: 1.2rem;
+  font-weight: 800;
+  margin: 0 0 8px;
+  color: #1a2135;
+}
+.inv-progreso-card p {
+  font-size: 13px;
+  color: #555;
+  margin: 0 0 20px;
+}
+.inv-progreso-bar-wrap {
+  background: #f0f0f0;
+  border-radius: 20px;
+  height: 12px;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+.inv-progreso-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg,#1971c2,#74c0fc);
+  border-radius: 20px;
+  transition: width 0.25s ease;
+  width: 0%;
+}
+.inv-progreso-pct {
+  font-size: 13px;
+  font-weight: 700;
+  color: #1971c2;
+  margin-bottom: 18px;
+}
+.inv-progreso-ok {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+.inv-progreso-ok .ok-icon { font-size: 2.8rem; }
+.inv-progreso-ok p { margin: 0; font-size: 14px; font-weight: 700; color: #15803d; }
+.inv-progreso-ok.visible { display: flex; }
+
+/* ── Modal confirmación importar ── */
+#modal-inv-confirmar-import {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+  z-index: 10000;
+  align-items: center;
+  justify-content: center;
+}
+#modal-inv-confirmar-import.activo { display: flex; }
+.inv-confirm-card {
+  background: #fff;
+  border-radius: 18px;
+  padding: 28px 32px;
+  max-width: 400px;
+  width: 90%;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.22);
+}
+.inv-confirm-card h3 {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #1a2135;
+  margin: 0 0 10px;
+}
+.inv-confirm-card p {
+  font-size: 13px;
+  color: #555;
+  margin: 0 0 20px;
+  line-height: 1.6;
+}
+.inv-confirm-btns {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+}
+.inv-confirm-btns button {
+  padding: 9px 20px;
+  border-radius: 9px;
+  border: none;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.inv-confirm-btns .btn-cancelar {
+  background: #f1f3f5;
+  color: #495057;
+}
+.inv-confirm-btns .btn-confirmar {
+  background: #e67700;
+  color: #fff;
+}
+.inv-confirm-btns .btn-confirmar:hover { background: #d06200; }
+.inv-confirm-resumen {
+  background: #f8f9fa;
+  border-radius: 10px;
+  padding: 12px 16px;
+  margin-bottom: 18px;
+  font-size: 13px;
+  color: #333;
+  line-height: 1.8;
+}
+.inv-confirm-resumen strong { color: #1971c2; }
+
+/* Remove spinner arrows from monto-recibido input */
+#monto-recibido::-webkit-outer-spin-button,
+#monto-recibido::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+#monto-recibido[type=number] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+  text-align: right;
+}
+
+/* ── Carrito edit overlay ── */
+.carrito-edit-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(200, 210, 230, 0.55);
+  backdrop-filter: blur(1px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: inherit;
+  z-index: 10;
+  transition: background 0.15s;
+}
+.carrito-edit-overlay:hover { background: rgba(180, 195, 220, 0.72); }
+.carrito-edit-overlay i {
+  font-size: 20px;
+  color: #1a2135;
+  opacity: 0.75;
+  pointer-events: none;
+  transition: transform 0.15s;
+}
+.carrito-edit-overlay:hover i {
+  transform: scale(1.2);
+  opacity: 1;
+}
+.carrito-item { position: relative; }
+#btn-editar-carrito:hover { background: rgba(255,255,255,0.15) !important; }
+

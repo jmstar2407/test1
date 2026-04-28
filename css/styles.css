@@ -1755,6 +1755,7 @@ padding: 12px;
 }
 
 #pos-dir-clear{
+display: none;
 position: absolute;
     right: 6px;
     background: none;
@@ -5234,6 +5235,7 @@ font-size: .8rem;
   display: flex;
   gap: 10px;
   align-items: center;
+  justify-content: flex-end;
 }
 
 /* Inventario modo orden btn */

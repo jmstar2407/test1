@@ -418,6 +418,9 @@ async function _obtenerNegociosDelUsuario(user) {
 }
 
 function _emitirNegocioListo() {
+  // ── FIX: mostrar el app antes de notificar a los módulos ──────────────────
+  showScreen('app');
+
   // Notificar a los demás módulos (pos.js, inventario.js, caja.js, etc.)
   window.dispatchEvent(new CustomEvent('micolmapp:negocio-listo', {
     detail: {

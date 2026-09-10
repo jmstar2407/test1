@@ -4,31 +4,27 @@
  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
  <title>ArríbaTe · Propiedades en República Dominicana</title>
  <meta name="description" content="Encuentra casas, apartamentos, solares y más en venta o alquiler en República Dominicana. Explora el mapa y publica tu propiedad en ArríbaTe.">
- <meta name="theme-color" content="#145d52"><link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
- <link rel="stylesheet" href="/css/main.css"><link rel="stylesheet" href="/css/map.css"><link rel="stylesheet" href="/css/modal.css"><link rel="stylesheet" href="/css/forms.css"><link rel="stylesheet" href="/css/responsive.css">
+ <meta name="theme-color" content="#145d52"><link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+ <link rel="stylesheet" href="css/estilos.css">
 </head>
 <body>
  <a class="skip-link" href="#results">Saltar a las propiedades</a>
  <header class="site-header">
-  <a class="brand" href="/" aria-label="ArríbaTe inicio"><span class="brand-mark" aria-hidden="true">A↑</span>ArríbaTe<span class="brand-dot">.</span></a>
-  <nav aria-label="Navegación principal"><button id="home" class="nav-button">Inicio</button><button data-operation="sale" class="nav-button active">Comprar</button><button data-operation="rent" class="nav-button">Alquilar</button></nav>
+  <a class="brand" href="index.html" aria-label="ArríbaTe inicio"><span class="brand-mark" aria-hidden="true">A↑</span>ArríbaTe<span class="brand-dot">.</span></a>
+  <nav aria-label="Navegación principal"><button data-operation="sale" class="nav-button active">Comprar</button><button data-operation="rent" class="nav-button">Alquilar</button></nav>
   <div class="account-controls"><button id="my-properties" class="nav-button">Mis propiedades</button><button id="auth-button" class="secondary">Iniciar sesión</button><button id="publish" class="primary">PublícaTe <span aria-hidden="true">＋</span></button></div>
  </header>
  <main>
   <section class="explore-toolbar" aria-label="Buscar propiedades">
-   <div class="intro"><span class="eyebrow">REPÚBLICA DOMINICANA</span><h1>Tu próximo lugar está aquí.</h1></div>
    <form id="search-form" class="search-bar" role="search"><span aria-hidden="true">⌕</span><input id="search-input" type="search" maxlength="180" placeholder="Sector, municipio, provincia…" aria-label="Buscar ubicación, tipo o precio" list="places"><datalist id="places"></datalist><button class="search-submit" aria-label="Buscar" type="submit">Buscar</button></form>
    <button id="filters-button" class="secondary filter-button"><span aria-hidden="true">☷</span> Filtros <span id="filter-count" hidden></span></button>
   </section>
-  <div id="demo-banner" class="demo-banner" hidden>Demostración · Los anuncios y la fotografía son ficticios. No hay propiedades reales publicadas en este modo.</div>
   <div class="workspace">
    <aside class="results-pane" id="results" tabindex="-1" aria-label="Resultados de propiedades">
-    <div class="results-top"><div class="segmented" aria-label="Operación"><button data-operation="sale" class="active" aria-pressed="true">En venta</button><button data-operation="rent" aria-pressed="false">En alquiler</button></div><span class="country-tag">DO</span></div>
     <button id="mobile-account" class="mobile-account secondary">Mis propiedades</button><div class="results-heading"><h2 id="results-title">Explora propiedades</h2><button id="refresh" class="icon-button" aria-label="Actualizar resultados">↻</button></div>
     <p id="status" class="status" role="status" aria-live="polite">Cargando…</p>
     <div id="active-filters" class="tags"></div><div id="property-list" class="property-list"></div>
     <button id="load-more" class="secondary load-more" hidden>Buscar más en esta zona</button>
-    <div class="map-note"><span class="brand-mark small" aria-hidden="true">A↑</span><p>Cambia de zona en el mapa.<br><span class="muted">Encuentra un lugar que se sienta tuyo.</span></p></div>
    </aside>
    <section class="map-section" aria-label="Mapa de propiedades">
     <div id="map" role="region" aria-label="Mapa interactivo de República Dominicana"></div>
@@ -40,7 +36,11 @@
   </div>
   <button id="mobile-view" class="mobile-view primary">Ver lista</button>
  </main>
- <footer class="site-footer"><div><a class="brand" href="/">ArríbaTe<span class="brand-dot">.</span></a><p>© ArríbaTe 2024</p></div><div class="footer-copy"><p>ArríbaTe se compromete a garantizar la accesibilidad digital para personas con discapacidades. Trabajamos continuamente para mejorar la accesibilidad de nuestra experiencia web para todos.</p><p>Aviso: La información presentada es de carácter informativo y está sujeta a cambios sin previo aviso. Al utilizar nuestra plataforma, reconoces y aceptas cumplir con nuestras Condiciones de uso y Políticas de privacidad.</p><div class="footer-links"><button id="privacy" class="text-button">Políticas de privacidad</button><button id="terms" class="text-button">Condiciones de uso</button><span>Síguenos</span><div id="social-links"></div></div></div></footer>
+ <template id="legal-footer"><footer class="site-footer"><div><a class="brand" href="index.html">ArríbaTe<span class="brand-dot">.</span></a><p>© ArríbaTe 2024</p></div><div class="footer-copy"><p>ArríbaTe se compromete a garantizar la accesibilidad digital para personas con discapacidades. Trabajamos continuamente para mejorar la accesibilidad de nuestra experiencia web para todos.</p><p>Aviso: La información presentada es de carácter informativo y está sujeta a cambios sin previo aviso. Al utilizar nuestra plataforma, reconoces y aceptas cumplir con nuestras Condiciones de uso y Políticas de privacidad.</p><div class="footer-links"><button data-legal="privacy" class="text-button">Políticas de privacidad</button><button data-legal="terms" class="text-button">Condiciones de uso</button><span>Síguenos</span><div class="social-links"></div></div></div></footer></template>
  <div id="toast" role="alert" hidden></div><noscript><p>Activa JavaScript para explorar el mapa y las propiedades de ArríbaTe.</p></noscript>
- <script type="module" src="/js/app.js"></script>
+ <script src="js/base.js" defer></script>
+ <script src="js/firebase.js" defer></script>
+ <script src="js/mapa.js" defer></script>
+ <script src="js/interfaz.js" defer></script>
+ <script src="js/app.js" defer></script>
 </body></html>

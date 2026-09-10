@@ -1,280 +1,46 @@
-<!DOCTYPE html>
-<html lang="es">
-
+<!doctype html>
+<html lang="es-DO">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport"
-    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>miColmApp – POS Colmados RD</title>
-
-  <!-- ═══════════════════════════════════════════════════════════════════
-       FUENTES Y LIBRERÍAS EXTERNAS
-  ════════════════════════════════════════════════════════════════════════ -->
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.1.7/dist/signature_pad.umd.min.js"></script>
-
-  <!-- ═══════════════════════════════════════════════════════════════════
-       ESTILOS MODULARES
-       css/styles.css         → Estilos globales (navbar, layout, etc.)
-       css/virtualKeyboard.css → Teclado virtual POS
-  ════════════════════════════════════════════════════════════════════════ -->
-  <link rel="stylesheet" href="./css/styles.css" />
-  <link rel="stylesheet" href="./css/virtualKeyboard.css" />
+ <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+ <title>ArríbaTe · Propiedades en República Dominicana</title>
+ <meta name="description" content="Encuentra casas, apartamentos, solares y más en venta o alquiler en República Dominicana. Explora el mapa y publica tu propiedad en ArríbaTe.">
+ <meta name="theme-color" content="#145d52"><link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+ <link rel="stylesheet" href="/css/main.css"><link rel="stylesheet" href="/css/map.css"><link rel="stylesheet" href="/css/modal.css"><link rel="stylesheet" href="/css/forms.css"><link rel="stylesheet" href="/css/responsive.css">
 </head>
-
 <body>
-
-  <!-- ══════════════════════════════════════════════════════════════════
-       PANTALLAS DE AUTENTICACIÓN Y SELECCIÓN DE NEGOCIO
-       Renderizadas por: js/modules/auth.js
-  ═══════════════════════════════════════════════════════════════════════ -->
-
-  <!-- LOADING SCREEN -->
-  <div id="loading-screen">
-    <div class="ls-icon">🏪</div>
-    <h2>miColmApp</h2>
-    <p>Cargando sistema...</p>
-    <div class="progress-bar">
-      <div class="progress-fill"></div>
-    </div>
+ <a class="skip-link" href="#results">Saltar a las propiedades</a>
+ <header class="site-header">
+  <a class="brand" href="/" aria-label="ArríbaTe inicio"><span class="brand-mark" aria-hidden="true">A↑</span>ArríbaTe<span class="brand-dot">.</span></a>
+  <nav aria-label="Navegación principal"><button id="home" class="nav-button">Inicio</button><button data-operation="sale" class="nav-button active">Comprar</button><button data-operation="rent" class="nav-button">Alquilar</button></nav>
+  <div class="account-controls"><button id="my-properties" class="nav-button">Mis propiedades</button><button id="auth-button" class="secondary">Iniciar sesión</button><button id="publish" class="primary">PublícaTe <span aria-hidden="true">＋</span></button></div>
+ </header>
+ <main>
+  <section class="explore-toolbar" aria-label="Buscar propiedades">
+   <div class="intro"><span class="eyebrow">REPÚBLICA DOMINICANA</span><h1>Tu próximo lugar está aquí.</h1></div>
+   <form id="search-form" class="search-bar" role="search"><span aria-hidden="true">⌕</span><input id="search-input" type="search" maxlength="180" placeholder="Sector, municipio, provincia…" aria-label="Buscar ubicación, tipo o precio" list="places"><datalist id="places"></datalist><button class="search-submit" aria-label="Buscar" type="submit">Buscar</button></form>
+   <button id="filters-button" class="secondary filter-button"><span aria-hidden="true">☷</span> Filtros <span id="filter-count" hidden></span></button>
+  </section>
+  <div id="demo-banner" class="demo-banner" hidden>Demostración · Los anuncios y la fotografía son ficticios. No hay propiedades reales publicadas en este modo.</div>
+  <div class="workspace">
+   <aside class="results-pane" id="results" tabindex="-1" aria-label="Resultados de propiedades">
+    <div class="results-top"><div class="segmented" aria-label="Operación"><button data-operation="sale" class="active" aria-pressed="true">En venta</button><button data-operation="rent" aria-pressed="false">En alquiler</button></div><span class="country-tag">DO</span></div>
+    <button id="mobile-account" class="mobile-account secondary">Mis propiedades</button><div class="results-heading"><h2 id="results-title">Explora propiedades</h2><button id="refresh" class="icon-button" aria-label="Actualizar resultados">↻</button></div>
+    <p id="status" class="status" role="status" aria-live="polite">Cargando…</p>
+    <div id="active-filters" class="tags"></div><div id="property-list" class="property-list"></div>
+    <button id="load-more" class="secondary load-more" hidden>Buscar más en esta zona</button>
+    <div class="map-note"><span class="brand-mark small" aria-hidden="true">A↑</span><p>Cambia de zona en el mapa.<br><span class="muted">Encuentra un lugar que se sienta tuyo.</span></p></div>
+   </aside>
+   <section class="map-section" aria-label="Mapa de propiedades">
+    <div id="map" role="region" aria-label="Mapa interactivo de República Dominicana"></div>
+    <div class="map-top-controls"><span class="map-caption">Explora República Dominicana</span><button id="locate" class="map-control" aria-label="Ir a mi ubicación">◎</button></div>
+    <div id="map-error" class="map-error" hidden>El mapa no pudo cargar. Puedes seguir buscando en la lista.</div>
+    <div class="map-style-control" role="group" aria-label="Estilo del mapa"><button id="map-style" class="active" aria-pressed="true">Mapa</button><button id="satellite-style" aria-pressed="false">Satélite</button></div>
+    <div class="map-legend"><span><i style="--pin:#d63c46"></i>Casa</span><span><i style="--pin:#2670d9"></i>Apartamento</span><span><i style="--pin:#188449"></i>Terreno</span><button id="legend-button" aria-label="Ver todos los tipos de marcadores">＋</button></div>
+   </section>
   </div>
-
-  <!-- AUTH SCREEN -->
-  <div id="auth-screen">
-    <div class="auth-card">
-      <div class="auth-logo">
-        <div class="logo-icon">🏪</div>
-        <h1>miColmApp</h1>
-        <p>Sistema POS para Colmados RD</p>
-      </div>
-      <div class="auth-tabs">
-        <button class="auth-tab active" onclick="authTab('login')">Iniciar Sesión</button>
-        <button class="auth-tab" onclick="authTab('registro')">Registrar Colmado</button>
-      </div>
-      <div id="auth-login">
-        <div class="form-group"><label>Correo Electrónico</label><input type="email" id="login-email" placeholder="admin@micolmado.com"></div>
-        <div class="form-group"><label>Contraseña</label><input type="password" id="login-pass" placeholder="••••••••"></div>
-        <button class="btn-primary" onclick="login()"><i class="fas fa-sign-in-alt"></i> Entrar al Sistema</button>
-      </div>
-      <div id="auth-registro" style="display:none;">
-        <div class="form-group"><label>Nombre del Negocio</label><input type="text" id="reg-nombre" placeholder="Colmado El Buen Precio"></div>
-        <div class="form-group">
-          <label>Tipo de Negocio</label>
-          <div id="reg-tipo-btns" class="tipo-negocio-btns">
-            <button type="button" class="tipo-negocio-btn activo" data-tipo="colmado" onclick="selTipoNegocio('reg','colmado')"><span style="font-size:1.4rem;">🏪</span>Colmado</button>
-            <button type="button" class="tipo-negocio-btn" data-tipo="restaurante" onclick="selTipoNegocio('reg','restaurante')"><span style="font-size:1.4rem;">🍽️</span>Restaurante</button>
-            <button type="button" class="tipo-negocio-btn" data-tipo="bebida" onclick="selTipoNegocio('reg','bebida')"><span style="font-size:1.4rem;">🍹</span>Bebidas</button>
-          </div>
-          <input type="hidden" id="reg-tipo" value="colmado">
-        </div>
-        <div class="form-group"><label>RNC (opcional)</label><input type="text" id="reg-rnc" placeholder="101-12345-6"></div>
-        <div class="form-group"><label>Dirección</label><input type="text" id="reg-direccion" placeholder="Calle Duarte #5, Santo Domingo"></div>
-        <div class="form-group"><label>Teléfono</label><input type="text" id="reg-telefono" placeholder="809-555-0000"></div>
-        <div class="form-group"><label>Correo Admin</label><input type="email" id="reg-email" placeholder="admin@tucolmado.com"></div>
-        <div class="form-group"><label>Contraseña</label><input type="password" id="reg-pass" placeholder="Mínimo 6 caracteres"></div>
-        <button class="btn-primary" onclick="registrar()"><i class="fas fa-store"></i> Registrar Negocio</button>
-      </div>
-      <div id="auth-msg"></div>
-    </div>
-  </div>
-
-  <!-- NEGOCIO SELECTOR SCREEN -->
-  <div id="negocio-selector-screen">
-    <div class="auth-card" style="max-width:520px;">
-      <div class="auth-logo">
-        <div class="logo-icon">🏪</div>
-        <h1>miColmApp</h1>
-        <p id="ns-bienvenida">Selecciona un negocio para administrar</p>
-      </div>
-      <div id="ns-lista" class="ns-lista"></div>
-      <button class="btn-primary btn-primary-azul" onclick="abrirAgregarNegocio()">
-        <i class="fas fa-plus-circle"></i> Agregar otro negocio
-      </button>
-      <button onclick="logoutTotal()" class="btn-logout-total">
-        <i class="fas fa-sign-out-alt"></i> Cerrar sesión completamente
-      </button>
-    </div>
-  </div>
-
-  <!-- AGREGAR NEGOCIO MODAL -->
-  <div id="ns-modal-nuevo">
-    <div class="auth-card ns-modal-card">
-      <button onclick="cerrarAgregarNegocio()" class="ns-modal-close">✕</button>
-      <div class="auth-logo ns-modal-logo">
-        <div class="logo-icon" style="font-size:1.8rem;">🏪</div>
-        <h2 style="font-size:1.3rem;margin:4px 0;">Registrar Nuevo Negocio</h2>
-      </div>
-      <div class="form-group"><label>Nombre del Negocio</label><input type="text" id="ns-reg-nombre" placeholder="Colmado El Buen Precio"></div>
-      <div class="form-group">
-        <label>Tipo de Negocio</label>
-        <div id="ns-reg-tipo-btns" class="tipo-negocio-btns">
-          <button type="button" class="tipo-negocio-btn activo" data-tipo="colmado" onclick="selTipoNegocio('ns','colmado')"><span style="font-size:1.4rem;">🏪</span>Colmado</button>
-          <button type="button" class="tipo-negocio-btn" data-tipo="restaurante" onclick="selTipoNegocio('ns','restaurante')"><span style="font-size:1.4rem;">🍽️</span>Restaurante</button>
-          <button type="button" class="tipo-negocio-btn" data-tipo="bebida" onclick="selTipoNegocio('ns','bebida')"><span style="font-size:1.4rem;">🍹</span>Bebidas</button>
-        </div>
-        <input type="hidden" id="ns-reg-tipo" value="colmado">
-      </div>
-      <div class="form-group"><label>RNC (opcional)</label><input type="text" id="ns-reg-rnc" placeholder="101-12345-6"></div>
-      <div class="form-group"><label>Dirección</label><input type="text" id="ns-reg-direccion" placeholder="Calle Duarte #5, Santo Domingo"></div>
-      <div class="form-group"><label>Teléfono</label><input type="text" id="ns-reg-telefono" placeholder="809-555-0000"></div>
-      <div id="ns-reg-msg" class="ns-reg-msg"></div>
-      <button class="btn-primary" onclick="registrarNuevoNegocio()"><i class="fas fa-store"></i> Crear Negocio</button>
-    </div>
-  </div>
-
-  <!-- ══════════════════════════════════════════════════════════════════
-       APLICACIÓN PRINCIPAL
-  ═══════════════════════════════════════════════════════════════════════ -->
-  <div id="app">
-
-    <!-- NAVBAR — gestionado por js/modules/utils.js (showScreen, nav) -->
-    <nav class="navbar">
-      <div class="navbar-brand">
-        <div class="brand-icon">🏪</div>
-        <div>
-          <h1><span style="color:#4a5568">mi</span><span style="color:#1a2135">Colm</span><span style="color:#fc4f62;">app</span></h1>
-          <div class="negocio-nombre" id="nav-negocio-nombre">Cargando...</div>
-        </div>
-      </div>
-      <div class="nav-spacer"></div>
-      <div id="modo-prueba-badge" style="display:none;align-items:center;gap:6px;background:#f59f00;color:#1a2135;font-weight:800;font-size:12px;padding:5px 12px;border-radius:20px;white-space:nowrap;letter-spacing:0.3px;flex-shrink:0;">
-        <i class="fas fa-flask"></i> MODO DE PRUEBA
-      </div>
-      <div id="offline-badge" style="display:none;align-items:center;gap:6px;background:#e03131;color:#fff;font-weight:800;font-size:12px;padding:5px 12px;border-radius:20px;white-space:nowrap;letter-spacing:0.3px;flex-shrink:0;cursor:default;">
-        <i class="fas fa-wifi-slash"></i> SIN CONEXIÓN
-      </div>
-      <div class="nav-datetime" id="nav-datetime"></div>
-      <div class="nav-buttons" id="nav-buttons"></div>
-      <button id="mob-carrito-fab" onclick="mobToggleCarrito()">
-        <span class="fab-icon"><i id="fab-icon-i" class="fas fa-shopping-cart"></i></span>
-        <span id="fab-label">Ver Carrito</span>
-        <span class="fab-badge" id="fab-badge">0</span>
-      </button>
-      <div class="nav-menu-wrap" id="nav-menu-wrap">
-        <button class="nav-menu-btn" id="nav-menu-btn" onclick="toggleNavMenu(event)" title="Opciones">
-          <span></span><span></span><span></span>
-        </button>
-        <div class="nav-menu-dropdown" id="nav-menu-dropdown">
-          <div class="nav-menu-email" id="nav-menu-email"><i class="fas fa-user-circle"></i> <span id="nav-email-txt">—</span></div>
-          <div class="nav-menu-divider"></div>
-          <button class="nav-menu-item" onclick="closeNavMenu();cambiarNegocio()"><i class="fas fa-store"></i> Mis Negocios</button>
-          <button class="nav-menu-item danger" onclick="closeNavMenu();logoutTotal()"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</button>
-        </div>
-      </div>
-    </nav>
-
-    <!-- BARRA INFERIOR MOBILE -->
-    <div id="mobile-bottom-nav"></div>
-    <div id="caja-pendiente-banner">
-      <i class="fas fa-exclamation-triangle"></i>
-      <span>⚠️ La caja no está abierta. No se pueden realizar ventas.</span>
-      <button onclick="showPage('caja')">Ir a Caja</button>
-    </div>
-
-    <!-- ── CONTENIDO PRINCIPAL POR PÁGINA ─────────────────────────── -->
-    <!-- El HTML detallado de cada página (POS, Caja, Inventario, etc.)
-         se carga desde el archivo original. Esta sección se mantiene
-         como referencia de estructura; en producción se puede cargar
-         dinámicamente o copiar directamente desde miColmApp.html -->
-    <div class="content" id="app-content">
-      <!-- Las páginas se incluyen aquí: page-pos, page-caja,
-           page-inventario, page-estadisticas, page-config -->
-      <!-- Ver miColmApp.html para el HTML completo de cada página -->
-    </div>
-
-  </div><!-- /#app -->
-
-  <!-- ══════════════════════════════════════════════════════════════════
-       MÓDULOS JAVASCRIPT — CARGA EN ORDEN DE DEPENDENCIAS
-  ═══════════════════════════════════════════════════════════════════════
-
-  DIAGRAMA DE DEPENDENCIAS:
-  ┌─────────────────────────────────────────────────┐
-  │              firebase.js (CDN)                  │
-  └────────────────────┬────────────────────────────┘
-                       │
-  ┌────────────────────▼────────────────────────────┐
-  │         js/modules/firebase-init.js             │
-  │   Inicializa app, auth, db, storage             │
-  │   Expone: window._fbApp, _auth, _db, _storage   │
-  └──┬──────────┬──────────┬──────────┬─────────────┘
-     │          │          │          │
-  ┌──▼──┐  ┌───▼──┐  ┌────▼───┐  ┌──▼──────────┐
-  │utils│  │ auth │  │offline │  │   app-state │
-  │ .js │  │  .js │  │  .js   │  │     .js     │
-  └──┬──┘  └───┬──┘  └────┬───┘  └──┬──────────┘
-     │          │          │         │
-     └──────────┴──────────┴─────────┘
-                       │
-         ┌─────────────┼─────────────┐
-         │             │             │
-  ┌──────▼──┐  ┌───────▼──┐  ┌──────▼──────┐
-  │  pos.js │  │  caja.js │  │inventario.js│
-  │(carrito)│  │(apertura)│  │(productos)  │
-  └─────────┘  └──────────┘  └─────────────┘
-                       │
-               ┌───────▼──────┐
-               │estadisticas.js│
-               └──────────────┘
-  ═══════════════════════════════════════════════════════════════════════ -->
-
-  <!-- MÓDULO 1: Inicialización Firebase -->
-  <script type="module" src="./js/modules/firebase-init.js"></script>
-
-  <!-- MÓDULO 2: Utilidades Globales (fmt, modales, navegación, toast) -->
-  <script type="module" src="./js/modules/utils.js"></script>
-
-  <!-- MÓDULO 3: Estado Global de la App -->
-  <script type="module" src="./js/modules/app-state.js"></script>
-
-  <!-- MÓDULO 4: Autenticación y Gestión de Negocios -->
-  <script type="module" src="./js/modules/auth.js"></script>
-
-  <!-- MÓDULO 5: Sistema Offline (cola de imágenes, badges) -->
-  <script type="module" src="./js/modules/offline.js"></script>
-
-  <!-- MÓDULO 6: Punto de Venta (POS) y Carrito -->
-  <script type="module" src="./js/modules/pos.js"></script>
-
-  <!-- MÓDULO 7: Gestión de Caja y Movimientos -->
-  <script type="module" src="./js/modules/caja.js"></script>
-
-  <!-- MÓDULO 8: Inventario y Catálogo de Productos -->
-  <script type="module" src="./js/modules/inventario.js"></script>
-
-  <!-- MÓDULO 9: Estadísticas y Reportes -->
-  <script type="module" src="./js/modules/estadisticas.js"></script>
-
-  <!-- MÓDULO 10: Teclado Virtual POS -->
-  <script type="module" src="./js/modules/virtual-keyboard.js"></script>
-
-  <!-- MÓDULO 11: Configuración del Negocio y Empleados -->
-  <script type="module" src="./js/modules/config.js"></script>
-
-  <!-- MÓDULO 12: Envío de Facturas por WhatsApp -->
-  <script type="module" src="./js/modules/whatsapp.js"></script>
-
-  <!-- MÓDULO 13: Escáner de Códigos de Barras (USB/BT + Cámara) -->
-  <script type="module" src="./js/modules/barcode-scanner.js"></script>
-
-  <!-- ESTILOS INLINE ADICIONALES (runtime) -->
-  <style>
-    @keyframes syncPulse { 0%,100%{opacity:1} 50%{opacity:0.6} }
-    @keyframes fadeInDown { from{opacity:0;transform:translateY(-8px)} to{opacity:1;transform:translateY(0)} }
-    #offline-badge[style*="e67700"] { animation: syncPulse 1.5s ease-in-out infinite; }
-    .toast.warning { background:#e67700 !important; border-left-color:#f59f00 !important; }
-    #monto-recibido::-webkit-outer-spin-button,
-    #monto-recibido::-webkit-inner-spin-button { -webkit-appearance:none; margin:0; }
-    #monto-recibido[type=number] { -moz-appearance:textfield; appearance:textfield; text-align:right; }
-    .carrito-edit-overlay { position:absolute;inset:0;background:rgba(200,210,230,0.55);backdrop-filter:blur(1px);display:flex;align-items:center;justify-content:center;cursor:pointer;border-radius:inherit;z-index:10;transition:background 0.15s; }
-    .carrito-edit-overlay:hover { background:rgba(180,195,220,0.72); }
-    .carrito-edit-overlay i { font-size:20px;color:#1a2135;opacity:0.75;pointer-events:none;transition:transform 0.15s; }
-    .carrito-edit-overlay:hover i { transform:scale(1.2);opacity:1; }
-    .carrito-item { position:relative; }
-    #btn-editar-carrito:hover { background:rgba(255,255,255,0.15) !important; }
-  </style>
-
-</body>
-</html>
+  <button id="mobile-view" class="mobile-view primary">Ver lista</button>
+ </main>
+ <footer class="site-footer"><div><a class="brand" href="/">ArríbaTe<span class="brand-dot">.</span></a><p>© ArríbaTe 2024</p></div><div class="footer-copy"><p>ArríbaTe se compromete a garantizar la accesibilidad digital para personas con discapacidades. Trabajamos continuamente para mejorar la accesibilidad de nuestra experiencia web para todos.</p><p>Aviso: La información presentada es de carácter informativo y está sujeta a cambios sin previo aviso. Al utilizar nuestra plataforma, reconoces y aceptas cumplir con nuestras Condiciones de uso y Políticas de privacidad.</p><div class="footer-links"><button id="privacy" class="text-button">Políticas de privacidad</button><button id="terms" class="text-button">Condiciones de uso</button><span>Síguenos</span><div id="social-links"></div></div></div></footer>
+ <div id="toast" role="alert" hidden></div><noscript><p>Activa JavaScript para explorar el mapa y las propiedades de ArríbaTe.</p></noscript>
+ <script type="module" src="/js/app.js"></script>
+</body></html>

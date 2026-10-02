@@ -1,46 +1,92 @@
 <!doctype html>
-<html lang="es-DO">
-<head>
- <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
- <title>ArríbaTe · Propiedades en República Dominicana</title>
- <meta name="description" content="Encuentra casas, apartamentos, solares y más en venta o alquiler en República Dominicana. Explora el mapa y publica tu propiedad en ArríbaTe.">
- <meta name="theme-color" content="#145d52"><link rel="icon" href="img/favicon.svg" type="image/svg+xml">
- <link rel="stylesheet" href="css/estilos.css">
-</head>
-<body>
- <a class="skip-link" href="#results">Saltar a las propiedades</a>
- <header class="site-header">
-  <a class="brand" href="index.html" aria-label="ArríbaTe inicio"><span class="brand-mark" aria-hidden="true">A↑</span>ArríbaTe<span class="brand-dot">.</span></a>
-  <nav aria-label="Navegación principal"><button data-operation="sale" class="nav-button active">Comprar</button><button data-operation="rent" class="nav-button">Alquilar</button></nav>
-  <div class="account-controls"><button id="my-properties" class="nav-button">Mis propiedades</button><button id="auth-button" class="secondary">Iniciar sesión</button><button id="publish" class="primary">PublícaTe <span aria-hidden="true">＋</span></button></div>
- </header>
- <main>
-  <section class="explore-toolbar" aria-label="Buscar propiedades">
-   <form id="search-form" class="search-bar" role="search"><span aria-hidden="true">⌕</span><input id="search-input" type="search" maxlength="180" placeholder="Sector, municipio, provincia…" aria-label="Buscar ubicación, tipo o precio" list="places"><datalist id="places"></datalist><button class="search-submit" aria-label="Buscar" type="submit">Buscar</button></form>
-   <button id="filters-button" class="secondary filter-button"><span aria-hidden="true">☷</span> Filtros <span id="filter-count" hidden></span></button>
-  </section>
-  <div class="workspace">
-   <aside class="results-pane" id="results" tabindex="-1" aria-label="Resultados de propiedades">
-    <button id="mobile-account" class="mobile-account secondary">Mis propiedades</button><div class="results-heading"><h2 id="results-title">Explora propiedades</h2><button id="refresh" class="icon-button" aria-label="Actualizar resultados">↻</button></div>
-    <p id="status" class="status" role="status" aria-live="polite">Cargando…</p>
-    <div id="active-filters" class="tags"></div><div id="property-list" class="property-list"></div>
-    <button id="load-more" class="secondary load-more" hidden>Buscar más en esta zona</button>
-   </aside>
-   <section class="map-section" aria-label="Mapa de propiedades">
-    <div id="map" role="region" aria-label="Mapa interactivo de República Dominicana"></div>
-    <div class="map-top-controls"><span class="map-caption">Explora República Dominicana</span><button id="locate" class="map-control" aria-label="Ir a mi ubicación">◎</button></div>
-    <div id="map-error" class="map-error" hidden>El mapa no pudo cargar. Puedes seguir buscando en la lista.</div>
-    <div class="map-style-control" role="group" aria-label="Estilo del mapa"><button id="map-style" class="active" aria-pressed="true">Mapa</button><button id="satellite-style" aria-pressed="false">Satélite</button></div>
-    <div class="map-legend"><span><i style="--pin:#d63c46"></i>Casa</span><span><i style="--pin:#2670d9"></i>Apartamento</span><span><i style="--pin:#188449"></i>Terreno</span><button id="legend-button" aria-label="Ver todos los tipos de marcadores">＋</button></div>
-   </section>
-  </div>
-  <button id="mobile-view" class="mobile-view primary">Ver lista</button>
- </main>
- <template id="legal-footer"><footer class="site-footer"><div><a class="brand" href="index.html">ArríbaTe<span class="brand-dot">.</span></a><p>© ArríbaTe 2024</p></div><div class="footer-copy"><p>ArríbaTe se compromete a garantizar la accesibilidad digital para personas con discapacidades. Trabajamos continuamente para mejorar la accesibilidad de nuestra experiencia web para todos.</p><p>Aviso: La información presentada es de carácter informativo y está sujeta a cambios sin previo aviso. Al utilizar nuestra plataforma, reconoces y aceptas cumplir con nuestras Condiciones de uso y Políticas de privacidad.</p><div class="footer-links"><button data-legal="privacy" class="text-button">Políticas de privacidad</button><button data-legal="terms" class="text-button">Condiciones de uso</button><span>Síguenos</span><div class="social-links"></div></div></div></footer></template>
- <div id="toast" role="alert" hidden></div><noscript><p>Activa JavaScript para explorar el mapa y las propiedades de ArríbaTe.</p></noscript>
- <script src="js/base.js" defer></script>
- <script src="js/firebase.js" defer></script>
- <script src="js/mapa.js" defer></script>
- <script src="js/interfaz.js" defer></script>
- <script src="js/app.js" defer></script>
-</body></html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#040b07"><title>NEGER CONTROLS · Termostato</title>
+<style>
+:root{color-scheme:dark;--bg:#040a06;--card:#0c1b12;--soft:#12281a;--line:#245336;--green:#55ed85;--muted:#9db5a2;--white:#f5fff6;--red:#ff686e}*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 50% -20%,#143e22 0,var(--bg) 57%);color:var(--white);font:500 15px system-ui,-apple-system,Segoe UI,sans-serif;min-height:100dvh}button{font:inherit;cursor:pointer;color:inherit;border:1px solid var(--line);background:var(--soft);border-radius:16px;transition:transform .15s,border-color .2s,background .2s}button:active{transform:scale(.95)}button:hover{border-color:var(--green)}button:disabled{opacity:.38;cursor:not-allowed}.shell{max-width:720px;margin:auto;padding:22px 16px 104px}.top{display:flex;align-items:center;gap:14px;margin-bottom:22px}.top img{width:58px;height:58px;object-fit:contain}.brand{font-weight:900;letter-spacing:.09em;font-size:19px}.sub,.muted{color:var(--muted);font-size:13px}.network{margin-left:auto;display:flex;align-items:center;gap:7px;font-size:12px;color:var(--muted);max-width:120px;text-align:right}.dot{flex:none;width:8px;height:8px;border-radius:50%;background:var(--muted)}.dot.ok{background:var(--green);box-shadow:0 0 12px var(--green)}.card{background:linear-gradient(140deg,#122719,#09170e);border:1px solid var(--line);border-radius:26px;padding:22px;box-shadow:0 24px 70px #0005;margin:14px 0}.eyebrow{text-transform:uppercase;letter-spacing:.19em;font-size:11px;color:var(--green);font-weight:800}.dial{width:min(280px,75vw);aspect-ratio:1;border-radius:50%;border:3px solid #327048;box-shadow:inset 0 0 0 12px #0d2014,0 0 40px #2ee67519;display:grid;place-items:center;margin:22px auto;position:relative}.dial:before{content:'';position:absolute;inset:14px;border:1px dashed #46b86b66;border-radius:50%}.value{font-size:76px;font-weight:250;letter-spacing:-.09em;line-height:1;text-align:center}.value small{font-size:23px;vertical-align:top;margin-left:4px}.dial p{margin:8px 0 0;color:var(--muted);font-size:12px;text-align:center}.temp-row{display:flex;align-items:center;justify-content:center;gap:20px}.circle{width:58px;height:58px;border-radius:50%;font-size:28px}.power{background:var(--green);color:#04200d;border:0;font-weight:850;padding:17px 26px;width:100%;margin:15px 0}.power.off{background:#213b29;color:var(--white);border:1px solid var(--line)}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}.grid button{min-height:58px;padding:8px 4px}.grid button.learned{border-color:#449f61}.grid button.pending{background:#236940}.label{display:block;font-size:11px;color:var(--muted);margin-top:5px}.section-title{display:flex;align-items:center;justify-content:space-between;gap:10px}.section-title h2{font-size:18px;margin:4px 0 14px}.smallbtn{padding:8px 11px;font-size:12px}.signals{display:grid;gap:8px}.signal{padding:12px 14px;border-radius:15px;border:1px solid var(--line);background:#0a1a10}.signal summary{cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:8px}.signal summary::marker{content:''}.signal strong{font-size:14px}.signal code{color:var(--green);font-size:11px}.details{color:var(--muted);font-size:12px;line-height:1.7;overflow-wrap:anywhere;padding-top:12px}.raw{max-height:100px;overflow:auto;border:1px solid var(--line);padding:8px;border-radius:8px}.actions{display:flex;gap:8px;margin-top:9px}.actions button{padding:8px 12px;font-size:12px}.danger{color:var(--red)}.bottom{position:fixed;bottom:0;left:0;right:0;background:#07130bed;border-top:1px solid var(--line);display:flex;justify-content:center;padding:8px max(16px,env(safe-area-inset-right)) calc(8px + env(safe-area-inset-bottom));backdrop-filter:blur(18px);z-index:10}.bottom button{flex:1;max-width:230px;border:0;background:transparent;border-radius:12px;padding:12px;color:var(--muted)}.bottom button.active{background:var(--soft);color:var(--green)}.hidden{display:none!important}#toast{position:fixed;left:50%;bottom:93px;transform:translateX(-50%);border:1px solid var(--line);background:#153b22;color:white;border-radius:12px;padding:11px 15px;box-shadow:0 12px 35px #0008;max-width:90%;z-index:20}.foot{color:var(--muted);font-size:12px;line-height:1.5;margin:18px 4px}@media(max-width:400px){.brand{font-size:15px}.top img{width:45px;height:45px}.grid button{font-size:12px}.card{padding:17px}}
+
+/* Tema blanco y verde inspirado en el panel proporcionado. */
+:root{color-scheme:light;--bg:#f6fbf7;--card:#fff;--soft:#eff9f0;--line:#dae9dd;--green:#139a50;--muted:#718679;--white:#143522;--red:#b84d55}
+body{background:radial-gradient(ellipse at 50% -18%,#dff8e4 0,#fbfdfb 55%,#f1f8f2 100%);color:var(--white)}
+button{background:#fff;box-shadow:0 4px 15px #194d2510}button:hover{background:#e9f8ed;border-color:#22ae5d}button:focus-visible{outline:3px solid #51c780;outline-offset:2px}
+.shell{max-width:660px;padding-top:26px}.top{margin-bottom:24px}.top img{width:56px;height:56px}.brand{color:#123820;letter-spacing:.045em}.sub,.muted{color:#748a7a}.dot{background:#abbfb0}.dot.ok{background:#20b761;box-shadow:0 0 0 5px #ddf9e7}
+.card{background:#fff;border:1px solid #e6efe7;box-shadow:0 18px 54px #18482212,0 3px 12px #18482208;border-radius:30px}
+.eyebrow{color:#178f4a}.dial{background:#fff;border:0;box-shadow:0 13px 38px #1b6c2c13,inset 0 0 0 17px #f7faf7;width:min(280px,78vw);margin:28px auto 24px}
+.dial:before{inset:27px;border:1px solid #e9f0e9;box-shadow:inset 0 4px 18px #3760470c}
+.dial svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible;z-index:1}.dial>div{position:relative;z-index:2}.value{font-size:64px;font-weight:650;letter-spacing:-.075em;color:#163b25}.value small{font-size:25px;color:#1f9e57}.dial p{color:#7a9180;font-weight:700;letter-spacing:.16em;font-size:10px}
+.circle{background:#edf9f0;color:#168b48;border:1px solid #d8efdc;box-shadow:none}.temp-row{gap:15px}.power{background:linear-gradient(125deg,#11a34f,#55cf70);color:#fff;box-shadow:0 12px 24px #18aa5260;border-radius:18px;margin-top:24px;letter-spacing:.08em}.power.off{background:#edf8ef;color:#138a48;border:1px solid #bde9c9;box-shadow:none}
+#home>.card:nth-of-type(2){background:linear-gradient(135deg,#0f9e4b,#51d473);border:0;box-shadow:0 18px 35px #12854135;color:#fff}#home>.card:nth-of-type(2) .muted{color:#e7ffea}#home>.card:nth-of-type(2) h2{color:#fff}
+#home .grid button{background:#ffffff26;border:1px solid #ffffff72;color:#fff;backdrop-filter:blur(8px);box-shadow:none}#home .grid button:hover{background:#ffffff50}#home .grid button.learned{background:#ffffffed;color:#137d40;border-color:#fff}#home .grid button:disabled{opacity:.5}
+.signal{background:#fff;border:1px solid #e0ece2}.signal code{color:#17944e}.details{color:#607764}.raw{border-color:#e3eee4;background:#f7fbf7}.actions button{background:#eff9f0}.danger{color:#b6484f}.bottom{background:#ffffffea;border-color:#e3eee4;box-shadow:0 -8px 28px #2043280c}.bottom button{color:#748575}.bottom button.active{background:#e1f7e7;color:#0e9147}#toast{background:#173f26;border:0;color:#fff}
+@media(max-width:400px){.dial{width:min(250px,74vw)}.value{font-size:58px}}
+</style></head><body><main class="shell"><header class="top"><img src="logo-marca.png" alt="Símbolo de la marca"><div><div class="brand">NEGER CONTROLS</div><div class="sub">Smart IR · Aire acondicionado</div></div><div class="network"><span id="dot" class="dot"></span><span id="network">Consultando…</span></div></header>
+<section id="home"><div class="card"><div class="eyebrow">Termostato · Aire 1</div><div class="dial"><svg id="gauge" viewBox="0 0 280 280" aria-hidden="true"></svg><div><div class="value" id="value">22<small>°C</small></div><p>TEMPERATURA OBJETIVO</p></div></div><div class="temp-row"><button class="circle" id="minus" aria-label="Bajar temperatura">−</button><span class="muted">Ajustar temperatura</span><button class="circle" id="plus" aria-label="Subir temperatura">+</button></div><button class="power off" id="power">ENCENDER</button></div><div class="card"><div class="section-title"><h2>Controles del aire</h2><span id="count" class="muted"></span></div><div class="grid" id="controls"></div></div><p class="foot">El equipo ejecuta los botones IR aprendidos. El objetivo se sincroniza en ambas pantallas; el IR se envía cuando existe una captura exacta para ese valor. El estado de encendido es el último comando enviado; el aire no confirma su estado.</p></section>
+<section id="library" class="hidden"><div class="card"><div class="section-title"><h2>Señales clonadas</h2><button class="smallbtn" id="refresh">Actualizar</button></div><p class="muted">Clona botones desde la pantalla del equipo. Aquí puedes consultar los datos técnicos, probarlos y eliminarlos.</p><div class="signals" id="signals"></div></div></section></main><nav class="bottom"><button data-page="home" class="active">Termostato</button><button data-page="library">Señales IR</button></nav><div id="toast" class="hidden" role="status"></div>
+<script>
+'use strict';
+const API='https://firestore.googleapis.com/v1/projects/facturacion-drink/databases/(default)/documents/devices/neger-thermostat-01';
+const KEY='AIzaSyCa3ntHg9DqV3JefcvFP9cg8xCmwm0wlLo';
+const names=['Encender','Apagar','Frío','Deshumidificar','Ventilador','Auto','Fan auto','Fan bajo','Fan alto','Swing','Sleep','Turbo'];
+let signals=new Map(),target=22,power=false,unit='C',busy=false,toastTimer;
+const $=id=>document.getElementById(id);
+function toast(message){$('toast').textContent=message;$('toast').classList.remove('hidden');clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('toast').classList.add('hidden'),3800)}
+function url(path){return API+path+(path.includes('?')?'&':'?')+'key='+encodeURIComponent(KEY)}
+async function request(path,method='GET',body){const controller=new AbortController(), timer=setTimeout(()=>controller.abort(),8000);try{const response=await fetch(url(path),{method,headers:{'Content-Type':'application/json'},body:body?JSON.stringify(body):undefined,signal:controller.signal});const data=await response.json().catch(()=>({}));if(!response.ok)throw Error(data.error?.message||'HTTP '+response.status);return data}finally{clearTimeout(timer)}}
+function fields(d){const o={};for(const [k,v] of Object.entries(d?.fields||{}))o[k]=v.stringValue??v.integerValue??v.booleanValue??(v.arrayValue?.values?.map(a=>Number(a.integerValue))||null);return o}
+function showNetwork(t,ok=false){$('network').textContent=t;$('dot').classList.toggle('ok',ok)}
+function shortKey(id){return id.startsWith('f')&&id.length===3?names[Number(id.slice(1))]||id:`${id.slice(1)} °${id[0]==='t'?'F':'C'}`}
+function safeText(el,txt){el.textContent=txt;return el}
+async function loadState(){
+  if(busy)return;
+  try{
+    const snapshot=await request('/status/main');
+    const state=fields(snapshot);
+    if(typeof state.power==='boolean')power=state.power;
+    if(state.unit==='C'||state.unit==='F')unit=state.unit;
+    if(Number.isFinite(Number(state.targetTemp)))target=Number(state.targetTemp);
+    render();
+    const fresh=Date.now()-Date.parse(snapshot.updateTime||'')<45000;
+    const online=fresh && state.wifi==='conectado';
+    showNetwork(online?'Equipo conectado':'Equipo sin señal reciente',online);
+  }catch(e){showNetwork('Sin acceso a Firestore');}
+}
+async function loadSignals(){
+  try{
+    let docs=[],page='';
+    do{let result=await request('/signals?pageSize=100'+(page?'&pageToken='+encodeURIComponent(page):''));docs.push(...(result.documents||[]));page=result.nextPageToken||''}while(page);
+    signals=new Map(docs.map(d=>[d.name.split('/').pop(),fields(d)]));render();
+    await loadState();
+  }catch(e){showNetwork('Sin acceso a Firestore');toast('No se pudieron cargar las señales: '+e.message)}
+}
+function renderGauge(){const svg=$('gauge');if(!svg)return;const NS='http://www.w3.org/2000/svg';svg.replaceChildren();let range=unit==='C'?14:26,active=(target-(unit==='C'?16:60))/range;for(let i=0;i<=46;i++){let angle=(-130+i*260/46)*Math.PI/180;let major=i%5===0;let a=major?117:121,b=major?130:128;let line=document.createElementNS(NS,'line');line.setAttribute('x1',140+Math.sin(angle)*a);line.setAttribute('y1',140-Math.cos(angle)*a);line.setAttribute('x2',140+Math.sin(angle)*b);line.setAttribute('y2',140-Math.cos(angle)*b);line.setAttribute('stroke',i/46<=active?'#23b75f':'#d8e9dc');line.setAttribute('stroke-width',major?3:2);line.setAttribute('stroke-linecap','round');svg.append(line)}}
+function render(){renderGauge();const controls=$('controls'),library=$('signals');controls.replaceChildren();library.replaceChildren();$('count').textContent=signals.size+' clonadas';$('value').innerHTML='';$('value').append(document.createTextNode(target));let degree=document.createElement('small');degree.textContent='°'+unit;$('value').append(degree);$('power').textContent=power?'APAGAR':'ENCENDER';$('power').classList.toggle('off',!power);
+for(let i=2;i<names.length;i++){let key='f'+String(i).padStart(2,'0'),button=document.createElement('button');button.textContent=names[i];button.classList.toggle('learned',signals.has(key));button.disabled=!signals.has(key)||busy;button.onclick=()=>send(key);controls.append(button)}
+for(const [key,s] of [...signals].sort((a,b)=>a[0].localeCompare(b[0]))){const box=document.createElement('details');box.className='signal';const summary=document.createElement('summary');let title=document.createElement('strong');title.textContent=shortKey(key);let code=document.createElement('code');code.textContent=key;summary.append(title,code);box.append(summary);const body=document.createElement('div');body.className='details';body.append(document.createTextNode(`Protocolo: ${s.protocol??'desconocido'} · Dirección: ${s.address??'?'} · Comando: ${s.command??'?'} · Bits: ${s.bits??'?'} · Portadora TX: ${s.carrierKhz??38} kHz · Repeticiones: ${s.copies??1} · Duraciones RAW: ${s.rawLength??s.rawTicks?.length??0}`));let raw=document.createElement('div');raw.className='raw';let timings=s.rawTicks||[];if(s.rawBase64){try{timings=Array.from(atob(s.rawBase64),c=>c.charCodeAt(0))}catch(_){timings=[]}}raw.textContent='RAW ('+timings.length+' bytes): '+timings.join(', ');body.append(raw);let actions=document.createElement('div');actions.className='actions';let test=document.createElement('button');test.textContent='Enviar';test.onclick=()=>send(key);let del=document.createElement('button');del.className='danger';del.textContent='Eliminar';del.onclick=async()=>{if(confirm('¿Eliminar la señal '+shortKey(key)+' del dispositivo y Firestore?'))await send('d:'+key)};actions.append(test,del);body.append(actions);box.append(body);library.append(box)}if(!signals.size)safeText(library,'Todavía no hay señales. Aprende una desde la pantalla del equipo.')}
+async function send(key){
+  if(busy)return false;
+  busy=true;render();
+  const id=crypto.randomUUID?.()||Date.now()+'-'+Math.random();
+  let outcome='';
+  try{
+    await request('/remote/current','PATCH',{fields:{id:{stringValue:id},key:{stringValue:key},status:{stringValue:'pending'},submittedAt:{stringValue:new Date().toISOString()}}});
+    toast('Comando enviado; esperando al equipo…');
+    for(let i=0;i<18;i++){
+      await new Promise(r=>setTimeout(r,1100));
+      let doc=fields(await request('/remote/current'));
+      if(doc.id!==id)throw Error('Otro comando reemplazó este envío');
+      if(doc.status==='sent'||doc.status==='target_only'){outcome=doc.status;break}
+      if(doc.status==='missing_signal')throw Error('Esta señal IR no está aprendida');
+    }
+    if(!outcome)throw Error('El equipo no confirmó el comando');
+    if(key==='f00')power=true;
+    if(key==='f01')power=false;
+    if(key[0]==='c'||key[0]==='t'){target=Number(key.slice(1));unit=key[0]==='t'?'F':'C'}
+    busy=false;
+    await loadState();
+    if(key.startsWith('d:'))await loadSignals();
+    toast(outcome==='sent'?'Comando IR ejecutado por el equipo':`Pantalla en ${target} °${unit}. Clona esa temperatura para enviar IR.`);
+    return true;
+  }catch(e){toast('No se pudo confirmar: '+e.message);return false}
+  finally{busy=false;render()}
+}
+$('power').onclick=()=>send(power?'f01':'f00');async function changeTemp(delta){let next=Math.max(unit==='C'?16:60,Math.min(unit==='C'?30:86,target+delta)),key=(unit==='C'?'c':'t')+next;if(next===target)return;if(await send(key)){target=next;render()}}$('minus').onclick=()=>changeTemp(-1);$('plus').onclick=()=>changeTemp(1);$('refresh').onclick=loadSignals;document.querySelectorAll('[data-page]').forEach(btn=>btn.onclick=()=>{document.querySelectorAll('[data-page]').forEach(x=>x.classList.toggle('active',x===btn));$('home').classList.toggle('hidden',btn.dataset.page!=='home');$('library').classList.toggle('hidden',btn.dataset.page!=='library')});
+loadSignals();setInterval(()=>{if(!busy&&!document.hidden)loadState()},4000);setInterval(()=>{if(!busy&&!document.hidden)loadSignals()},30000);
+</script></body></html>
